@@ -20,7 +20,6 @@ class Akun extends Model
         'jabatan',
         'is_admin',
         'id_devisi',
-        'is_aktif'
     ];
 
     // Set nilai default untuk is_admin ke 0
