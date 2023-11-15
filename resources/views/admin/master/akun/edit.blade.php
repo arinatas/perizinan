@@ -30,20 +30,20 @@
                                 @csrf
 								<div class="mb-10">
                                     <label for="exampleFormControlInput1" class="required form-label">Nama</label>
-                                    <input type="text" value="{{$akun->name}}" class="form-control form-control-solid" required name="name"/>
+                                    <input type="text" value="{{$akun->nama}}" class="form-control form-control-solid" required name="nama"/>
+                                </div>
+								<div class="mb-10">
+                                    <label for="exampleFormControlInput1" class="required form-label">Jabatan</label>
+                                    <input type="text" value="{{$akun->jabatan}}" class="form-control form-control-solid" required name="jabatan"/>
                                 </div>
                                 <div class="mb-10">
                                     <label for="exampleFormControlInput1" class="required form-label">Email</label>
                                     <input type="text" value="{{$akun->email}}" class="form-control form-control-solid" required name="email"/>
                                 </div>
 								<div class="mb-10">
-									<label for="exampleFormControlInput1" class="required form-label">Jenis Pegawai</label>
-									<select class="form-select form-select-solid" name="jenis_pegawai" required>
-										<option value="1" {{$akun->jenis_pegawai == 1 ? 'selected' : ''}}>Tendik</option>
-										<option value="2" {{$akun->jenis_pegawai == 2 ? 'selected' : ''}}>Dosen Tetap</option>
-										<option value="3" {{$akun->jenis_pegawai == 3 ? 'selected' : ''}}>Dosen LB</option>
-									</select>
-								</div>
+                                    <label for="exampleFormControlInput1" class="required form-label">Atasan</label>
+                                    <input type="text" value="{{$akun->id_devisi}}" class="form-control form-control-solid" required name="id_devisi"/>
+                                </div>
 								<div class="mb-10">
 									<label for="exampleFormControlInput1" class="required form-label">Role</label>
 									<select class="form-select form-select-solid" name="is_admin" required>

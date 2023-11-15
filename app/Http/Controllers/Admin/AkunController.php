@@ -31,8 +31,7 @@ class AkunController extends Controller
             'nama' => 'required|string|max:255',
             'jabatan' => 'required|string|max:255',
             'is_admin' => 'required|integer|between:0,1',
-            'id_devisi' => 'required|integer',
-            'is_aktif' => 'required|integer|between:0,1',
+            'id_devisi' => 'required|integer'
         ]);
 
         // kalau ada error kembalikan error
@@ -54,8 +53,7 @@ class AkunController extends Controller
                 'nama' => $request->nama,
                 'jabatan' => $request->jabatan,
                 'is_admin' => $request->is_admin,
-                'id_devisi' => $request->id_devisi,
-                'is_aktif' => $request->is_aktif,
+                'id_devisi' => $request->id_devisi
             ]);
 
             DB::commit();

@@ -35,7 +35,7 @@
                                                         <th class="min-w-100px">Nama</th>
                                                         <th class="min-w-100px">Email</th>
                                                         <th class="min-w-100px">Jabatan</th>
-                                                        <th class="min-w-100px">Devisi</th>
+                                                        <th class="min-w-100px">Atasan</th>
                                                         <th class="min-w-100px">Role</th>
                                                         <th class="min-w-100px">Status</th>
                                                         <th class="min-w-300px">Action</th>
@@ -156,7 +156,23 @@
                                                             <span class="required">Nama</span>
                                                         </label>
                                                         <!--end::Label-->
-                                                        <input class="form-control form-control-solid" type="text" name="name" required value=""/>
+                                                        <input class="form-control form-control-solid" type="text" name="nama" required value=""/>
+                                                    </div>
+                                                    <div class="d-flex flex-column mb-7 fv-row">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                                            <span class="required">Jabatan</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <input class="form-control form-control-solid" type="text" name="jabatan" required value=""/>
+                                                    </div>
+                                                    <div class="d-flex flex-column mb-7 fv-row">
+                                                        <!--begin::Label-->
+                                                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
+                                                            <span class="required">Atasan</span>
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <input class="form-control form-control-solid" type="text" name="id_devisi" required value=""/>
                                                     </div>
                                                     <div class="d-flex flex-column mb-7 fv-row">
                                                         <!--begin::Label-->
@@ -165,18 +181,6 @@
                                                         </label>
                                                         <!--end::Label-->
                                                         <input class="form-control form-control-solid" type="text" name="email" required value=""/>
-                                                    </div>
-                                                    <div class="d-flex flex-column mb-7 fv-row">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                                            <span class="required">Jenis Pegawai</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <select class="form-select form-select-solid" name="jenis_pegawai" required>
-                                                            <option value="1">Tendik</option>
-                                                            <option value="2">Dosen Tetap</option>
-                                                            <option value="3">Dosen LB</option>
-                                                        </select>
                                                     </div>
                                                     <div class="d-flex flex-column mb-7 fv-row">
                                                         <!--begin::Label-->
