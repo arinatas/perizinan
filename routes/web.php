@@ -6,6 +6,8 @@ use App\Http\Controllers\LoginController;
 // Admin
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AkunController;
+// User
+use App\Http\Controllers\User\UserController;
 
 // User
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -29,6 +31,10 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::get('password', [ChangePasswordController::class, 'edit'])->name('password.edit')->middleware('auth');
 Route::patch('password', [ChangePasswordController::class, 'update'])->name('password.edit')->middleware('auth');
+
+Route::get('/adminDashboard', [AdminController::class, 'index'])->middleware('auth')->name('adminDashboard');
+
+Route::get('/userDashboard', [UserController::class, 'index'])->middleware('auth')->name('userDashboard');
 
 Route::middleware(['admin'])->group(function () {
     // Dashboard
