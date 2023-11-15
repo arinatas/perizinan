@@ -16,7 +16,7 @@ License: You must have a valid license purchased only from themeforest(the above
 	<!--begin::Head-->
 	<head><base href="../../../../">
 		<meta charset="utf-8" />
-		<title>PPM Primakara</title>
+		<title>Perizinan Primakara</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 		<!--begin::Fonts-->
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
@@ -51,8 +51,8 @@ License: You must have a valid license purchased only from themeforest(the above
 						<!--end: Aside header-->
 						<!--begin: Aside content-->
 						<div class="flex-column-fluid d-flex flex-column justify-content-center">
-							<h3 class="font-size-h1 mb-5 text-white">Welcome to PPM Primakara</h3>
-							<p class="font-weight-lighter text-white opacity-80">Central Quality Assurance System of Primakara</p>
+							<h3 class="font-size-h1 mb-5 text-white">Welcome to Perizinan Primakara</h3>
+							<p class="font-weight-lighter text-white opacity-80">Employee Permission System of Primakara</p>
 						</div>
 						<!--end: Aside content-->
 						<!--begin: Aside footer for desktop-->
@@ -83,7 +83,7 @@ License: You must have a valid license purchased only from themeforest(the above
 						<div class="login-form login-signin">
 							<div class="text-center mb-10 mb-lg-20">
 								<h3 class="font-size-h1">Sign In</h3>
-								<p class="text-muted font-weight-bold">Enter your username and password</p>
+								<p class="text-muted font-weight-bold">Enter your email and password</p>
 							</div>
 							<!--begin::Form-->
 							{{-- cek status login error --}}
@@ -97,9 +97,9 @@ License: You must have a valid license purchased only from themeforest(the above
 							<form action="/login" method="POST" class="form">
 								@csrf
 								<div class="form-group">
-									<input class="form-control @error('username') is-invalid @enderror form-control-solid h-auto py-5 px-6" type="text" name="username" value="{{ old('username') }}" placeholder="Username" name="username" 
+									<input class="form-control @error('email') is-invalid @enderror form-control-solid h-auto py-5 px-6" type="text" name="email" value="{{ old('email') }}" placeholder="email" name="email" 
 									autocomplete="on" required/>
-									@error('username')
+									@error('email')
 									<div class="invalid-feedback mb-1">
 									{{ $message }}
 									</div>
@@ -142,7 +142,7 @@ License: You must have a valid license purchased only from themeforest(the above
             
 					</div>
           <div class="simple-footer mb-3 text-center" style="user-select: auto;">
-              Made with <i class="fas fa-heart text-danger" style="user-select: auto;"></i> by PPTI Primakara
+              Made with <i class="fas fa-heart text-danger" style="user-select: auto;"></i> by DTI Primakara
           </div>
 					<!--end::Content body-->
 					<!--begin::Content footer for mobile-->
