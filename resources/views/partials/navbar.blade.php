@@ -1803,7 +1803,7 @@
                   <!--end::Avatar-->
                   <!--begin::Username-->
                   <div class="d-flex flex-column">
-                    <div class="fw-bolder d-flex align-items-center fs-5">{{ auth()->user()->username }}</div>
+                    <div class="fw-bolder d-flex align-items-center fs-5">{{ auth()->user()->nama }}</div>
                   </div>
                   <!--end::Username-->
                 </div>
