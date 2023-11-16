@@ -1,0 +1,133 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+use App\Models\Cuti;
+use App\Models\Akun;
+use Illuminate\Support\Facades\Hash;
+
+class CutiController extends Controller
+{
+    public function index()
+    {
+        $cutis = Cuti::with('user')->get();
+        $users = Akun::all(); // Fetch all users
+        return view('admin.master.cuti.index', [
+            'title' => 'Cuti',
+            'section' => 'Master',
+            'active' => 'cuti',
+            'cutis' => $cutis,
+            'users' => $users,
+        ]);
+    }
+
+    public function store(Request $request)
+    {
+        // validasi input yang didapatkan dari request
+        $validator = Validator::make($request->all(), [
+            'id_user' => 'required|integer',
+            'tahun' => 'required|date_format:Y',
+            'jumlah_cuti' => 'required|integer',
+        ]);
+    
+        // kalau ada error kembalikan error
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+    
+        // simpan data ke database
+        try {
+            DB::beginTransaction();
+    
+            // Hash password sebelum menyimpannya ke database
+            $hashedPassword = Hash::make($request->password);
+    
+            // insert ke tabel users
+            Cuti::create([
+                'id_user' => $request->id_user,
+                'tahun' => $request->tahun,
+                'jumlah_cuti' => $request->jumlah_cuti,
+            ]);
+    
+            DB::commit();
+    
+            return redirect()->back()->with('insertSuccess', 'Data berhasil diinputkan');
+    
+        } catch(Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withInput()->with('insertFail', $e->getMessage());
+        }
+    }    
+
+    public function edit($id)
+    {
+        $cuti = Cuti::find($id);
+
+        if (!$cuti) {
+            return redirect()->back()->with('dataNotFound', 'Data tidak ditemukan');
+        }
+
+        $users = Akun::all(); // Fetch all users
+
+        return view('admin.master.cuti.edit', [
+            'title' => 'Cuti',
+            'section' => 'Master',
+            'active' => 'cuti',
+            'cuti' => $cuti,
+            'users' => $users,
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $cuti = Cuti::find($id);
+
+        if (!$cuti) {
+            return redirect()->back()->with('dataNotFound', 'Data tidak ditemukan');
+        }
+
+        // validasi input yang didapatkan dari request
+        $validator = Validator::make($request->all(), [
+            'id_user' => 'required|integer',
+            'tahun' => 'required|date_format:Y',
+            'jumlah_cuti' => 'required|integer',
+        ]);
+
+        // kalau ada error kembalikan error
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        try{
+            $cuti->id_user = $request->id_user;
+            $cuti->tahun = $request->tahun;
+            $cuti->jumlah_cuti = $request->jumlah_cuti;
+
+            $cuti->save();
+
+            return redirect('/cuti')->with('updateSuccess', 'Data berhasil di Update');
+        } catch(Exception $e) {
+            dd($e);
+            return redirect()->back()->with('updateFail', 'Data gagal di Update');
+        }
+    }
+
+    public function destroy($id)
+    {
+        // Cari data pengguna berdasarkan ID
+        $position = Cuti::find($id);
+
+        try {
+            // Hapus data pengguna
+            $position->delete();
+            return redirect()->back()->with('deleteSuccess', 'Data berhasil dihapus!');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('deleteFail', $e->getMessage());
+        }
+    }
+
+}

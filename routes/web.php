@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AkunController;
 use App\Http\Controllers\Admin\AtasanController;
 use App\Http\Controllers\Admin\JenisCutiController;
+use App\Http\Controllers\Admin\CutiController;
 // User
 use App\Http\Controllers\User\UserController;
 
@@ -63,6 +64,13 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/editJeniscuti/{id}', [JenisCutiController::class, 'edit'])->middleware('auth')->name('edit.jeniscuti');
     Route::post('/updateJeniscuti/{id}', [JenisCutiController::class, 'update'])->middleware('auth')->name('update.jeniscuti');
     Route::delete('/deleteJeniscuti/{id}', [JenisCutiController::class, 'destroy'])->middleware('auth')->name('destroy.jeniscuti');
+
+    // Master Cuti
+    Route::get('/cuti', [CutiController::class, 'index'])->middleware('auth')->name('cuti');
+    Route::post('/cuti', [CutiController::class, 'store'])->middleware('auth')->name('insert.cuti');
+    Route::get('/editCuti/{id}', [CutiController::class, 'edit'])->middleware('auth')->name('edit.cuti');
+    Route::post('/updateCuti/{id}', [CutiController::class, 'update'])->middleware('auth')->name('update.cuti');
+    Route::delete('/deleteCuti/{id}', [CutiController::class, 'destroy'])->middleware('auth')->name('destroy.cuti');
 
 });
 
