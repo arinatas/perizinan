@@ -25,32 +25,39 @@
                                         <!--begin::Table-->
                                         @if ($formizins )
                                         <div class="table-responsive my-10 mx-8">
-                                            <table class="table table-striped gy-7 gs-7">
-                                                <thead>
-                                                    <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                                                        <th class="min-w-100px">No</th>
-                                                        <th class="min-w-100px">Nama</th>
-                                                        <th class="min-w-100px">Jabatan</th>
-                                                        <th class="min-w-100px">Tanggal</th>
-                                                        <th class="min-w-100px">Jumlah Izin</th>
-                                                        <th class="min-w-100px">No hp</th>
-                                                        <th class="min-w-100px">Approve Atasan</th>
-                                                        <th class="min-w-100px">Approve SDM</th>
-                                                        <th class="min-w-100px">Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    @php
-                                                        $no = 1; // Inisialisasi no
-                                                    @endphp
-                                                    @foreach ($formizins as $item)
+                                        <!-- Include this at the top of your view file to show flash messages -->
+                                        @if(session('success'))
+                                            <div class="alert alert-success">
+                                                {{ session('success') }}
+                                            </div>
+                                        @endif
+
+                                        <table class="table table-striped gy-7 gs-7">
+                                            <thead>
+                                                <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
+                                                    <th class="min-w-100px">No</th>
+                                                    <th class="min-w-100px">Nama</th>
+                                                    <th class="min-w-100px">Jabatan</th>
+                                                    <th class="min-w-100px">Tanggal</th>
+                                                    <th class="min-w-100px">Jumlah Izin</th>
+                                                    <th class="min-w-100px">Approve Atasan</th>
+                                                    <th class="min-w-100px">Approve SDM</th>
+                                                    <th class="min-w-100px">Action Atasan</th>
+                                                    <th class="min-w-100px">Action SDM</th>
+                                                    <th class="min-w-100px">Detail</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @php
+                                                    $no = 1; // Inisialisasi no
+                                                @endphp
+                                                @foreach ($formizins as $item)
                                                     <tr>
                                                         <td>{{ $no }}</td>
                                                         <td>{{ $item->nama }}</td>
                                                         <td>{{ $item->jabatan }}</td>
                                                         <td>{{ $item->tanggal }}</td>
                                                         <td>{{ $item->jumlah_izin }} Hari</td>
-                                                        <td>{{ $item->no_hp }}</td>
                                                         <td>
                                                             @if($item->approve_atasan == 0)
                                                                 <i class="fas fa-hourglass-half text-warning" data-toggle="tooltip" title="Menunggu Persetujuan"></i> Waiting
@@ -74,16 +81,53 @@
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            <a href="#" class="btn btn-sm btn-success btn-action" data-toggle="tooltip" title="Approve Atasan"><i class="fas fa-check"></i> Atasan</a>
-                                                            <a href="#" class="btn btn-sm btn-success btn-action" data-toggle="tooltip" title="Approve SDM"><i class="fas fa-check"></i> SDM</a>
+                                                            <div class="btn-group d-flex flex-column">
+                                                                <!-- Atasan Approve/Unapprove/Reject Buttons -->
+                                                                <form method="post" action="{{ route('formizin.approve-atasan', $item->id) }}">
+                                                                    @csrf
+                                                                    <button type="submit" class="btn btn-sm btn-success btn-action mb-2 w-100" data-toggle="tooltip" title="Approve Atasan"><i class="fas fa-check"></i> Approve</button>
+                                                                </form>
+
+                                                                <form method="post" action="{{ route('formizin.unapprove-atasan', $item->id) }}">
+                                                                    @csrf
+                                                                    <button type="submit" class="btn btn-sm btn-danger btn-action mb-2 w-100" data-toggle="tooltip" title="Unapprove Atasan"><i class="fas fa-times"></i> Unapprove</button>
+                                                                </form>
+
+                                                                <form method="post" action="{{ route('formizin.reject-atasan', $item->id) }}">
+                                                                    @csrf
+                                                                    <button type="submit" class="btn btn-sm btn-warning btn-action w-100" data-toggle="tooltip" title="Reject Atasan"><i class="fas fa-times"></i> Reject</button>
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="btn-group d-flex flex-column">
+                                                                <!-- SDM Approve/Unapprove/Reject Buttons -->
+                                                                <form method="post" action="{{ route('formizin.approve-sdm', $item->id) }}">
+                                                                    @csrf
+                                                                    <button type="submit" class="btn btn-sm btn-success btn-action mb-2 w-100" data-toggle="tooltip" title="Approve SDM"><i class="fas fa-check"></i> Approve</button>
+                                                                </form>
+
+                                                                <form method="post" action="{{ route('formizin.unapprove-sdm', $item->id) }}">
+                                                                    @csrf
+                                                                    <button type="submit" class="btn btn-sm btn-danger btn-action mb-2 w-100" data-toggle="tooltip" title="Unapprove SDM"><i class="fas fa-times"></i> Unapprove</button>
+                                                                </form>
+
+                                                                <form method="post" action="{{ route('formizin.reject-sdm', $item->id) }}">
+                                                                    @csrf
+                                                                    <button type="submit" class="btn btn-sm btn-warning btn-action w-100" data-toggle="tooltip" title="Reject SDM"><i class="fas fa-times"></i> Reject</button>
+                                                                </form>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-sm btn-info btn-action" data-toggle="tooltip" title="Lihat"><i class="fas fa-eye"></i></a>
                                                         </td>
                                                     </tr>
                                                     @php
                                                         $no++; // Tambahkan no setiap kali iterasi
                                                     @endphp
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
                                         </div>
                                         @else
                                         <div class="my-10 mx-15">

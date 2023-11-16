@@ -75,6 +75,21 @@ Route::middleware(['admin'])->group(function () {
 
     // Form Izin
     Route::get('/formizin', [FormIzinController::class, 'index'])->middleware('auth')->name('formizin');
+    // Approve Atasan
+    Route::post('/formizin/approve-atasan/{id}', [FormIzinController::class, 'approveAtasan'])->middleware('auth')->name('formizin.approve-atasan');
+    // Approve SDM
+    Route::post('/formizin/approve-sdm/{id}', [FormIzinController::class, 'approveSdm'])->middleware('auth')->name('formizin.approve-sdm');
+    // Unapprove Atasan
+    Route::post('/formizin/unapprove-atasan/{id}', [FormIzinController::class, 'unapproveAtasan'])->middleware('auth')->name('formizin.unapprove-atasan');
+    // Unapprove SDM
+    Route::post('/formizin/unapprove-sdm/{id}', [FormIzinController::class, 'unapproveSdm'])->middleware('auth')->name('formizin.unapprove-sdm');
+    // Reject Atasan
+    Route::post('/formizin/reject-atasan/{id}', [FormIzinController::class, 'rejectAtasan'])->middleware('auth')->name('formizin.reject-atasan');
+    // Reject SDM
+    Route::post('/formizin/reject-sdm/{id}', [FormIzinController::class, 'rejectSdm'])->middleware('auth')->name('formizin.reject-sdm');
+
+
+
 
 });
 
