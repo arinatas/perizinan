@@ -6,10 +6,10 @@ use App\Http\Controllers\LoginController;
 // Admin
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AkunController;
+use App\Http\Controllers\Admin\AtasanController;
 // User
 use App\Http\Controllers\User\UserController;
 
-// User
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
@@ -48,6 +48,13 @@ Route::middleware(['admin'])->group(function () {
     Route::delete('/deleteAkun/{id}', [AkunController::class, 'destroy'])->middleware('auth')->name('destroy.akun');
     Route::get('/resetAkun/{id}', [AkunController::class, 'reset'])->middleware('auth')->name('reset.akun');
     Route::post('/resetupdateAkun/{id}', [AkunController::class, 'resetupdate'])->middleware('auth')->name('resetupdate.akun');
+
+    // Master Atasan
+    Route::get('/atasan', [AtasanController::class, 'index'])->middleware('auth')->name('atasan');
+    Route::post('/atasan', [AtasanController::class, 'store'])->middleware('auth')->name('insert.atasan');
+    Route::get('/editAtasan/{id}', [AtasanController::class, 'edit'])->middleware('auth')->name('edit.atasan');
+    Route::post('/updateAtasan/{id}', [AtasanController::class, 'update'])->middleware('auth')->name('update.atasan');
+    Route::delete('/deleteAtasan/{id}', [AtasanController::class, 'destroy'])->middleware('auth')->name('destroy.atasan');
 
 });
 
