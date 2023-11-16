@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Atasan;
 
 class Akun extends Model
 {
@@ -31,5 +32,11 @@ class Akun extends Model
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
+
+    // Definisikan hubungan dengan model Devisi
+    public function devisi()
+    {
+        return $this->belongsTo(Atasan::class, 'id_devisi', 'id');
+    }
 }
 

@@ -7,19 +7,26 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Akun;
+use App\Models\Atasan;
 use Illuminate\Support\Facades\Hash;
 
 class AkunController extends Controller
 {
     public function index()
     {
-        $akuns = Akun::all();
-            return view('admin.master.akun.index', [
-                'title' => 'User',
-                'section' => 'Master',
-                'active' => 'user',
-                'akuns' => $akuns,
-            ]);
+        // Ambil semua pengguna dengan devisi dan atasan terkait
+        $akuns = Akun::with(['devisi', 'devisi.atasanUser'])->get();
+
+        // Ambil semua atasan
+        $atasans = Atasan::all(); 
+
+        return view('admin.master.akun.index', [
+            'title' => 'User',
+            'section' => 'Master',
+            'active' => 'user',
+            'akuns' => $akuns,
+            'atasans' => $atasans, // Kirim data atasan ke tampilan
+        ]);
     }
 
     public function store(Request $request)
@@ -76,18 +83,23 @@ class AkunController extends Controller
     public function edit($id)
     {
         $akun = Akun::find($id);
-
+    
         if (!$akun) {
             return redirect()->back()->with('dataNotFound', 'Data tidak ditemukan');
         }
-
+    
+        // Ambil semua data atasan
+        $atasans = Atasan::all();
+    
         return view('admin.master.akun.edit', [
             'title' => 'User',
-            'secction' => 'Master',
+            'section' => 'Master',
             'active' => 'user',
             'akun' => $akun,
+            'atasans' => $atasans, // Kirim data atasan ke tampilan
         ]);
     }
+      
 
     public function update(Request $request, $id)
     {

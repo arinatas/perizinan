@@ -41,9 +41,20 @@
                                     <input type="text" value="{{$akun->email}}" class="form-control form-control-solid" required name="email"/>
                                 </div>
 								<div class="mb-10">
-                                    <label for="exampleFormControlInput1" class="required form-label">Atasan</label>
-                                    <input type="text" value="{{$akun->id_devisi}}" class="form-control form-control-solid" required name="id_devisi"/>
-                                </div>
+									<label for="exampleFormControlInput1" class="required form-label">Atasan</label>
+									<select class="form-control form-control-solid" name="id_devisi" required>
+										<option value="">Pilih Atasan</option> <!-- Placeholder option -->
+
+										<!-- Loop melalui atasan dan buat opsi dropdown -->
+										@foreach($atasans as $atasan)
+											@if ($atasan->atasanUser) <!-- Pengecekan apakah atasan memiliki data atasanUser -->
+												<option value="{{ $atasan->id }}" {{ $akun->id_devisi == $atasan->id ? 'selected' : '' }}>
+													{{ $atasan->atasanUser->nama ?? 'Nama Tidak Tersedia' }}
+												</option>
+											@endif
+										@endforeach
+									</select>
+								</div>
 								<div class="mb-10">
 									<label for="exampleFormControlInput1" class="required form-label">Role</label>
 									<select class="form-select form-select-solid" name="is_admin" required>

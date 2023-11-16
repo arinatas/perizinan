@@ -31,14 +31,14 @@
                                             <table class="table table-striped gy-7 gs-7">
                                                 <thead>
                                                     <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                                                        <th class="min-w-100px">No</th>
+                                                        <th class="min-w-50px">No</th>
                                                         <th class="min-w-100px">Nama</th>
                                                         <th class="min-w-100px">Email</th>
                                                         <th class="min-w-100px">Jabatan</th>
                                                         <th class="min-w-100px">Atasan</th>
                                                         <th class="min-w-100px">Role</th>
                                                         <th class="min-w-100px">Status</th>
-                                                        <th class="min-w-300px">Action</th>
+                                                        <th class="min-w-100px">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -51,7 +51,13 @@
                                                         <td>{{ $item->nama }}</td>
                                                         <td>{{ $item->email }}</td>
                                                         <td>{{ $item->jabatan }}</td>
-                                                        <td>{{ $item->id_devisi }}</td>
+                                                        <td>
+                                                            @if ($item->devisi->atasanUser)
+                                                                {{ $item->devisi->atasanUser->nama }}
+                                                            @else
+                                                                -
+                                                            @endif
+                                                        </td>
                                                         <td>
                                                             @if ($item->is_admin == 1)
                                                                 Admin
@@ -172,7 +178,18 @@
                                                             <span class="required">Atasan</span>
                                                         </label>
                                                         <!--end::Label-->
-                                                        <input class="form-control form-control-solid" type="text" name="id_devisi" required value=""/>
+
+                                                        <!-- Ubah input menjadi elemen select -->
+                                                        <select class="form-control form-control-solid" name="id_devisi" required>
+                                                            <option value="">Pilih Atasan</option> <!-- Opsi penanda tempat -->
+
+                                                            <!-- Loop melalui devisis dan akses relasi atasanUser -->
+                                                            @foreach($atasans as $atasan)
+                                                                @if($atasan->atasanUser) <!-- Periksa apakah atasanUser ada -->
+                                                                    <option value="{{ $atasan->id }}">{{ $atasan->atasanUser->nama ?? 'Nama Tidak Tersedia' }}</option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                     <div class="d-flex flex-column mb-7 fv-row">
                                                         <!--begin::Label-->
