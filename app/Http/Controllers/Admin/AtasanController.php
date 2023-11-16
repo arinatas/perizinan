@@ -7,19 +7,26 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Atasan;
+use App\Models\Akun;
 use Illuminate\Support\Facades\Hash;
 
 class AtasanController extends Controller
 {
     public function index()
     {
-        $atasans = Atasan::all();
-            return view('admin.master.atasan.index', [
-                'title' => 'Atasan',
-                'section' => 'Master',
-                'active' => 'atasan',
-                'atasans' => $atasans,
-            ]);
+        // Mendapatkan semua data user dari tabel users
+        $users = Akun::all();
+
+        // Mendapatkan data atasan beserta data user yang terkait
+        $atasans = Atasan::with('atasanUser')->get();
+
+        return view('admin.master.atasan.index', [
+            'title' => 'Atasan',
+            'section' => 'Master',
+            'active' => 'atasan',
+            'atasans' => $atasans,
+            'users' => $users,
+        ]);
     }
 
     public function store(Request $request)
@@ -65,12 +72,14 @@ class AtasanController extends Controller
         if (!$atasan) {
             return redirect()->back()->with('dataNotFound', 'Data tidak ditemukan');
         }
+        $users = Akun::all();
 
         return view('admin.master.atasan.edit', [
             'title' => 'Atasan',
             'secction' => 'Master',
             'active' => 'atasan',
             'atasan' => $atasan,
+            'users' => $users
         ]);
     }
 

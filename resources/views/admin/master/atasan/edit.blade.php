@@ -33,9 +33,16 @@
                                     <input type="text" value="{{$atasan->nama_devisi}}" class="form-control form-control-solid" required name="nama_devisi"/>
                                 </div>
 								<div class="mb-10">
-                                    <label for="exampleFormControlInput1" class="form-label">Atasan</label>
-                                    <input type="text" value="{{$atasan->id_atasan}}" class="form-control form-control-solid" name="id_atasan"/>
-                                </div>
+									<label for="exampleFormControlInput1" class="form-label">Atasan</label>
+									<!-- begin::Select Dropdown -->
+									<select class="form-control form-control-solid" name="id_atasan">
+										<option value="">Pilih Atasan</option>
+										@foreach ($users as $user)
+											<option value="{{ $user->id }}" @if ($user->id == $atasan->id_atasan) selected @endif>{{ $user->nama }}</option>
+										@endforeach
+									</select>
+									<!-- end::Select Dropdown -->
+								</div>
                                 <div class="d-flex justify-content-end">
                                     <!--begin::Actions-->
                                     <a href="{{ route('atasan') }}" class="btn btn-secondary">

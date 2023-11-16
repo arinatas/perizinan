@@ -31,10 +31,10 @@
                                             <table class="table table-striped gy-7 gs-7">
                                                 <thead>
                                                     <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                                                        <th class="min-w-100px">No</th>
+                                                        <th class="min-w-50px">No</th>
                                                         <th class="min-w-100px">Nama Devisi</th>
                                                         <th class="min-w-100px">Atasan</th>
-                                                        <th class="min-w-300px">Action</th>
+                                                        <th class="min-w-100px">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -45,7 +45,13 @@
                                                     <tr>
                                                         <td>{{ $no }}</td>
                                                         <td>{{ $item->nama_devisi }}</td>
-                                                        <td>{{ $item->id_atasan }}</td>
+                                                        <td>
+                                                            @if ($item->atasanUser)
+                                                                {{ $item->atasanUser->nama }}
+                                                            @else
+                                                                -
+                                                            @endif
+                                                        </td>
                                                         <td>
                                                             <a href="{{ route('edit.atasan', $item->id ) }}" class="btn btn-sm btn-primary btn-action" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
                                                             <form id="form-delete" action="{{ route('destroy.atasan', $item->id ) }}" method="POST"
@@ -143,7 +149,14 @@
                                                             <span>Atasan</span>
                                                         </label>
                                                         <!--end::Label-->
-                                                        <input class="form-control form-control-solid" type="text" name="id_atasan" value=""/>
+                                                        <!--begin::Select Dropdown-->
+                                                        <select class="form-control form-control-solid" name="id_atasan">
+                                                            <option value="">Pilih Atasan</option>
+                                                            @foreach ($users as $user)
+                                                                <option value="{{ $user->id }}">{{ $user->nama }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                        <!--end::Select Dropdown-->
                                                     </div>
                                                     <!--end::Input group-->
                                                     <!--begin::Actions-->

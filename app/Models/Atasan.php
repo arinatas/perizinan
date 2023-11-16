@@ -22,5 +22,11 @@ class Atasan extends Model
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
+
+    // Definisikan relasi dengan model Akun
+    public function atasanUser()
+    {
+        return $this->belongsTo(Akun::class, 'id_atasan', 'id');
+    }
 }
 
