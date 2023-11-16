@@ -38,6 +38,16 @@ class CutiController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
+
+        // cek apakah data dengan id_user dan tahun sudah ada
+        $existingData = Cuti::where('id_user', $request->id_user)
+            ->where('tahun', $request->tahun)
+            ->first();
+
+        if ($existingData) {
+            // Jika data sudah ada, tampilkan pesan dan mungkin berikan tindakan sesuai kebutuhan
+            return redirect()->back()->with('insertFail', 'Data untuk user dengan tahun tersebut sudah ada.');
+        }
     
         // simpan data ke database
         try {
@@ -100,6 +110,17 @@ class CutiController extends Controller
         // kalau ada error kembalikan error
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // cek apakah data dengan id_user dan tahun sudah ada, kecuali data yang sedang diupdate
+        $existingData = Cuti::where('id_user', $request->id_user)
+            ->where('tahun', $request->tahun)
+            ->where('id', '!=', $id)
+            ->first();
+
+        if ($existingData) {
+            // Jika data sudah ada, tampilkan pesan dan mungkin berikan tindakan sesuai kebutuhan
+            return redirect()->back()->with('updateFail', 'Data untuk user dengan tahun tersebut sudah ada.');
         }
 
         try{
