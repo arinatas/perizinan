@@ -119,7 +119,7 @@ class CutiController extends Controller
             ->first();
 
         if ($existingData) {
-            // Jika data sudah ada, tampilkan pesan dan mungkin berikan tindakan sesuai kebutuhan
+            // Jika data sudah ada, tampilkan pesan berikut
             return redirect()->back()->with('updateFail', 'Data untuk user dengan tahun tersebut sudah ada.');
         }
 

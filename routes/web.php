@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AkunController;
 use App\Http\Controllers\Admin\AtasanController;
 use App\Http\Controllers\Admin\JenisCutiController;
 use App\Http\Controllers\Admin\CutiController;
+use App\Http\Controllers\Admin\FormIzinController;
 // User
 use App\Http\Controllers\User\UserController;
 
@@ -71,6 +72,9 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/editCuti/{id}', [CutiController::class, 'edit'])->middleware('auth')->name('edit.cuti');
     Route::post('/updateCuti/{id}', [CutiController::class, 'update'])->middleware('auth')->name('update.cuti');
     Route::delete('/deleteCuti/{id}', [CutiController::class, 'destroy'])->middleware('auth')->name('destroy.cuti');
+
+    // Form Izin
+    Route::get('/formizin', [FormIzinController::class, 'index'])->middleware('auth')->name('formizin');
 
 });
 
