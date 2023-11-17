@@ -23,7 +23,7 @@
                                         </div>
                                         <!--end::Heading-->
                                         <!--begin::Table-->
-                                        @if ($formsakits )
+                                        @if ($formcutis )
                                         <div class="table-responsive my-10 mx-8">
                                         <!-- Include this at the top of your view file to show flash messages -->
                                         @if(session('success'))
@@ -35,13 +35,13 @@
                                         <table class="table table-striped gy-7 gs-7">
                                             <thead>
                                                 <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
-                                                    <th class="min-w-100px">No</th>
+                                                    <th class="min-w-10px">No</th>
                                                     <th class="min-w-100px">Nama</th>
-                                                    <th class="min-w-100px">Jabatan</th>
-                                                    <th class="min-w-100px">Tanggal</th>
-                                                    <th class="min-w-100px">Jumlah Izin</th>
-                                                    <th class="min-w-100px">Approve Atasan</th>
-                                                    <th class="min-w-100px">Approve SDM</th>
+                                                    <th class="min-w-50px">Jabatan</th>
+                                                    <th class="min-w-50px">Tanggal Mulai</th>
+                                                    <th class="min-w-50px">Tanggal Selesai</th>
+                                                    <th class="min-w-50px">Approve Atasan</th>
+                                                    <th class="min-w-50px">Approve SDM</th>
                                                     <th class="min-w-100px">Action Atasan</th>
                                                     <th class="min-w-100px">Action SDM</th>
                                                     <th class="min-w-100px">Detail</th>
@@ -51,13 +51,13 @@
                                                 @php
                                                     $no = 1; // Inisialisasi no
                                                 @endphp
-                                                @foreach ($formsakits as $item)
+                                                @foreach ($formcutis as $item)
                                                     <tr>
                                                         <td>{{ $no }}</td>
                                                         <td>{{ $item->nama }}</td>
                                                         <td>{{ $item->jabatan }}</td>
-                                                        <td>{{ $item->tanggal }}</td>
-                                                        <td>{{ $item->jumlah_izin }} Hari</td>
+                                                        <td>{{ $item->tanggal_mulai }}</td>
+                                                        <td>{{ $item->tanggal_selesai }}</td>
                                                         <td>
                                                             @if($item->approve_atasan == 0)
                                                                 <i class="fas fa-hourglass-half text-warning" data-toggle="tooltip" title="Menunggu Persetujuan"></i> Waiting
@@ -83,17 +83,17 @@
                                                         <td>
                                                             <div class="btn-group d-flex flex-column">
                                                                 <!-- Atasan Approve/Unapprove/Reject Buttons -->
-                                                                <form method="post" action="{{ route('formsakit.approve-atasan', $item->id) }}">
+                                                                <form method="post" action="{{ route('formcuti.approve-atasan', $item->id) }}">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-sm btn-success btn-action mb-2 w-100" data-toggle="tooltip" title="Approve Atasan"><i class="fas fa-check"></i> Approve</button>
                                                                 </form>
 
-                                                                <form method="post" action="{{ route('formsakit.unapprove-atasan', $item->id) }}">
+                                                                <form method="post" action="{{ route('formcuti.unapprove-atasan', $item->id) }}">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-sm btn-warning btn-action mb-2 w-100" data-toggle="tooltip" title="Unapprove Atasan"><i class="fas fa-undo"></i> Unapprove</button>
                                                                 </form>
 
-                                                                <form method="post" action="{{ route('formsakit.reject-atasan', $item->id) }}">
+                                                                <form method="post" action="{{ route('formcuti.reject-atasan', $item->id) }}">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-sm btn-danger btn-action w-100" data-toggle="tooltip" title="Reject Atasan"><i class="fas fa-times"></i> Reject</button>
                                                                 </form>
@@ -102,17 +102,17 @@
                                                         <td>
                                                             <div class="btn-group d-flex flex-column">
                                                                 <!-- SDM Approve/Unapprove/Reject Buttons -->
-                                                                <form method="post" action="{{ route('formsakit.approve-sdm', $item->id) }}">
+                                                                <form method="post" action="{{ route('formcuti.approve-sdm', $item->id) }}">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-sm btn-success btn-action mb-2 w-100" data-toggle="tooltip" title="Approve SDM"><i class="fas fa-check"></i> Approve</button>
                                                                 </form>
 
-                                                                <form method="post" action="{{ route('formsakit.unapprove-sdm', $item->id) }}">
+                                                                <form method="post" action="{{ route('formcuti.unapprove-sdm', $item->id) }}">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-sm btn-warning btn-action mb-2 w-100" data-toggle="tooltip" title="Unapprove SDM"><i class="fas fa-undo"></i> Unapprove</button>
                                                                 </form>
 
-                                                                <form method="post" action="{{ route('formsakit.reject-sdm', $item->id) }}">
+                                                                <form method="post" action="{{ route('formcuti.reject-sdm', $item->id) }}">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-sm btn-danger btn-action w-100" data-toggle="tooltip" title="Reject SDM"><i class="fas fa-times"></i> Reject</button>
                                                                 </form>
@@ -130,7 +130,7 @@
                                                                         <!--begin::Modal header-->
                                                                         <div class="modal-header">
                                                                             <!--begin::Modal title-->
-                                                                            <h2>Detail Pengajuan Izin : {{ $item->nama }} </h2>
+                                                                            <h2>Detail Pengajuan Cuti : {{ $item->nama }} </h2>
                                                                             <!--end::Modal title-->
                                                                             <!--begin::Close-->
                                                                             <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
@@ -164,20 +164,32 @@
                                                                                     <td>{{ $item->devisi->nama_devisi }}</td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <th>Tanggal Izin</th>
-                                                                                    <td>{{ $item->tanggal }}</td>
+                                                                                    <th>Jenis Cuti</th>
+                                                                                    <td>{{ $item->jenisCuti->nama_cuti }}</td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <th>Jumlah Izin</th>
-                                                                                    <td>{{ $item->jumlah_izin }} Hari</td>
+                                                                                    <th>Tanggal Mulai</th>
+                                                                                    <td>{{ $item->tanggal_mulai }}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th>Tanggal Selesai</th>
+                                                                                    <td>{{ $item->tanggal_selesai }}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th>Jumlah Cuti</th>
+                                                                                    <td>{{ $item->jumlah_cuti }} Hari</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th>Alamat</th>
+                                                                                    <td>{{ $item->alamat }}</td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <th>No HP</th>
                                                                                     <td>{{ $item->no_hp }}</td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <th>Keterangan</th>
-                                                                                    <td>{{ $item->keterangan }}</td>
+                                                                                    <th>Keperluan</th>
+                                                                                    <td>{{ $item->keperluan }}</td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <th>Approve Atasan</th>

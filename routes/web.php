@@ -14,6 +14,8 @@ use App\Http\Controllers\Admin\FormSakitController;
 use App\Http\Controllers\Admin\FormSetHariController;
 use App\Http\Controllers\Admin\FormMeninggalkanTugasController;
 use App\Http\Controllers\Admin\FormTgsKlrKantorController;
+use App\Http\Controllers\Admin\FormCutiController;
+use App\Http\Controllers\Admin\FormLemburController;
 // User
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\IzinController;
@@ -136,6 +138,25 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/formtgsklrkantor/unapprove-sdm/{id}', [FormTgsKlrKantorController::class, 'unapproveSdm'])->middleware('auth')->name('formtgsklrkantor.unapprove-sdm'); // Unapprove SDM
     Route::post('/formtgsklrkantor/reject-atasan/{id}', [FormTgsKlrKantorController::class, 'rejectAtasan'])->middleware('auth')->name('formtgsklrkantor.reject-atasan'); // Reject Atasan
     Route::post('/formtgsklrkantor/reject-sdm/{id}', [FormTgsKlrKantorController::class, 'rejectSdm'])->middleware('auth')->name('formtgsklrkantor.reject-sdm'); // Reject SDM
+
+    // Form Cuti
+    Route::get('/formcuti', [FormCutiController::class, 'index'])->middleware('auth')->name('formcuti');
+    Route::post('/formcuti/approve-atasan/{id}', [FormCutiController::class, 'approveAtasan'])->middleware('auth')->name('formcuti.approve-atasan');// Approve Atasan
+    Route::post('/formcuti/approve-sdm/{id}', [FormCutiController::class, 'approveSdm'])->middleware('auth')->name('formcuti.approve-sdm'); // Approve SDM
+    Route::post('/formcuti/unapprove-atasan/{id}', [FormCutiController::class, 'unapproveAtasan'])->middleware('auth')->name('formcuti.unapprove-atasan'); // Unapprove Atasan
+    Route::post('/formcuti/unapprove-sdm/{id}', [FormCutiController::class, 'unapproveSdm'])->middleware('auth')->name('formcuti.unapprove-sdm'); // Unapprove SDM
+    Route::post('/formcuti/reject-atasan/{id}', [FormCutiController::class, 'rejectAtasan'])->middleware('auth')->name('formcuti.reject-atasan'); // Reject Atasan
+    Route::post('/formcuti/reject-sdm/{id}', [FormCutiController::class, 'rejectSdm'])->middleware('auth')->name('formcuti.reject-sdm'); // Reject SDM
+
+    // Form Lembur
+    Route::get('/formlembur', [FormLemburController::class, 'index'])->middleware('auth')->name('formlembur');
+    Route::post('/formlembur/approve-atasan/{id}', [FormLemburController::class, 'approveAtasan'])->middleware('auth')->name('formlembur.approve-atasan');// Approve Atasan
+    Route::post('/formlembur/approve-sdm/{id}', [FormLemburController::class, 'approveSdm'])->middleware('auth')->name('formlembur.approve-sdm'); // Approve SDM
+    Route::post('/formlembur/unapprove-atasan/{id}', [FormLemburController::class, 'unapproveAtasan'])->middleware('auth')->name('formlembur.unapprove-atasan'); // Unapprove Atasan
+    Route::post('/formlembur/unapprove-sdm/{id}', [FormLemburController::class, 'unapproveSdm'])->middleware('auth')->name('formlembur.unapprove-sdm'); // Unapprove SDM
+    Route::post('/formlembur/reject-atasan/{id}', [FormLemburController::class, 'rejectAtasan'])->middleware('auth')->name('formlembur.reject-atasan'); // Reject Atasan
+    Route::post('/formlembur/reject-sdm/{id}', [FormLemburController::class, 'rejectSdm'])->middleware('auth')->name('formlembur.reject-sdm'); // Reject SDM
+
 });
 
 
