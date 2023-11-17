@@ -119,7 +119,134 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <a href="#" class="btn btn-sm btn-info btn-action" data-toggle="tooltip" title="Lihat"><i class="fas fa-eye"></i></a>
+                                                            <a href="#" class="btn btn-sm btn-info btn-action" title="Detail Pengajuan Izin" data-toggle="tooltip" data-bs-toggle="modal" data-bs-target="#detailModal{{ $item->id }}"><i class="fas fa-eye"></i></a>
+                                                            {{-- modal here --}}
+                                                            <!--begin::Modal - New Card-->
+                                                            <div class="modal fade" id="detailModal{{ $item->id }}" tabindex="-1" aria-hidden="true">
+                                                                <!--begin::Modal dialog-->
+                                                                <div class="modal-dialog modal-dialog-centered mw-850px">
+                                                                    <!--begin::Modal content-->
+                                                                    <div class="modal-content">
+                                                                        <!--begin::Modal header-->
+                                                                        <div class="modal-header">
+                                                                            <!--begin::Modal title-->
+                                                                            <h2>Detail Pengajuan Izin : {{ $item->nama }} </h2>
+                                                                            <!--end::Modal title-->
+                                                                            <!--begin::Close-->
+                                                                            <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
+                                                                                <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                                                                                <span class="svg-icon svg-icon-1">
+                                                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                                                                        <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1" transform="rotate(-45 6 17.3137)" fill="black" />
+                                                                                        <rect x="7.41422" y="6" width="16" height="2" rx="1" transform="rotate(45 7.41422 6)" fill="black" />
+                                                                                    </svg>
+                                                                                </span>
+                                                                                <!--end::Svg Icon-->
+                                                                            </div>
+                                                                            <!--end::Close-->
+                                                                        </div>
+                                                                        <!--end::Modal header-->
+                                                                        <!--begin::Modal body-->
+                                                                        <div class="modal-body scroll-y mx-xl-8">
+                                                                            <!--begin::content modal body-->
+                                                                            <div class="table-responsive my-10 mx-8">
+                                                                                <table class="table table-striped gy-7 gs-7">
+                                                                                <tr>
+                                                                                    <th>Nama</th>
+                                                                                    <td>{{ $item->nama }}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th>Jabatan</th>
+                                                                                    <td>{{ $item->jabatan }}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th>Devisi</th>
+                                                                                    <td>{{ $item->devisi->nama_devisi }}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th>Tanggal Izin</th>
+                                                                                    <td>{{ $item->tanggal }}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th>Jumlah Izin</th>
+                                                                                    <td>{{ $item->jumlah_izin }} Hari</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th>No HP</th>
+                                                                                    <td>{{ $item->no_hp }}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th>Keperluan</th>
+                                                                                    <td>{{ $item->keperluan }}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th>Approve Atasan</th>
+                                                                                    <td>
+                                                                                        @if($item->approve_atasan == 1)
+                                                                                            <span class="text-success"><i class="fas fa-check"></i> Disetujui</span>
+                                                                                        @elseif($item->approve_atasan == 0)
+                                                                                            <span class="text-warning"><i class="fas fa-clock"></i> Menunggu</span>
+                                                                                        @elseif($item->approve_atasan == 2)
+                                                                                            <span class="text-danger"><i class="fas fa-times"></i> Ditolak</span>
+                                                                                        @else
+                                                                                            <span class="text-muted">Not Reviewed</span>
+                                                                                        @endif
+                                                                                    </td>
+                                                                                </tr>
+
+                                                                                <tr>
+                                                                                    <th>Approve SDM</th>
+                                                                                    <td>
+                                                                                        @if($item->approve_sdm == 1)
+                                                                                            <span class="text-success"><i class="fas fa-check"></i> Disetujui</span>
+                                                                                        @elseif($item->approve_sdm == 0)
+                                                                                            <span class="text-warning"><i class="fas fa-clock"></i> Menunggu</span>
+                                                                                        @elseif($item->approve_sdm == 2)
+                                                                                            <span class="text-danger"><i class="fas fa-times"></i> Ditolak</span>
+                                                                                        @else
+                                                                                            <span class="text-muted">Not Reviewed</span>
+                                                                                        @endif
+                                                                                    </td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th>Tanggal Input</th>
+                                                                                    <td>{{ $item->created_at }}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th>Bukti Pendukung</th>
+                                                                                    <td>
+                                                                                    {{-- Cek jika Bukti pendukung berupa gambar maka tampilkan gambar, jika pdf maka view ke blank page --}}
+                                                                                        @if ($item->bukti_pendukung)
+                                                                                            @php
+                                                                                                $extension = pathinfo($item->bukti_pendukung, PATHINFO_EXTENSION);
+                                                                                            @endphp
+
+                                                                                            @if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif']))
+                                                                                                {{-- Display image --}}
+                                                                                                <img src="{{ asset('assets/media/bukti_pendukung/izin/' . $item->bukti_pendukung) }}" alt="Bukti Pendukung" style="width: 450px; height: auto;">
+
+                                                                                            @elseif (in_array(strtolower($extension), ['pdf']))
+                                                                                                {{-- Display PDF --}}
+                                                                                                <a href="{{ asset('assets/media/bukti_pendukung/izin/' . $item->bukti_pendukung) }}" target="_blank">View PDF</a>
+                                                                                            @else
+                                                                                                {{-- Handle other file types --}}
+                                                                                                <p>File type not supported</p>
+                                                                                            @endif
+                                                                                        @else
+                                                                                            No File Available
+                                                                                        @endif
+                                                                                    </td>
+                                                                                </tr>
+                                                                                </table>
+                                                                            </div>
+                                                                            <!--end::content modal body-->
+                                                                        </div>
+                                                                        <!--end::Modal body-->
+                                                                    </div>
+                                                                    <!--end::Modal content-->
+                                                                </div>
+                                                                <!--end::Modal dialog-->
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                     @php

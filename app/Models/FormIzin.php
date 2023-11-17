@@ -31,5 +31,11 @@ class FormIzin extends Model
 
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
+
+    // Define a relationship with the Atasan model
+    public function devisi()
+    {
+        return $this->belongsTo(Atasan::class, 'id_devisi', 'id');
+    }
 }
 
