@@ -23,7 +23,7 @@
                                         </div>
                                         <!--end::Heading-->
                                         <!--begin::Table-->
-                                        @if ($formizins )
+                                        @if ($formsetharis )
                                         <div class="table-responsive my-10 mx-8">
                                         <!-- Include this at the top of your view file to show flash messages -->
                                         @if(session('success'))
@@ -39,7 +39,7 @@
                                                     <th class="min-w-100px">Nama</th>
                                                     <th class="min-w-100px">Jabatan</th>
                                                     <th class="min-w-100px">Tanggal</th>
-                                                    <th class="min-w-100px">Jumlah Izin</th>
+                                                    <th class="min-w-50px">Waktu</th>
                                                     <th class="min-w-100px">Approve Atasan</th>
                                                     <th class="min-w-100px">Approve SDM</th>
                                                     <th class="min-w-100px">Action Atasan</th>
@@ -51,13 +51,13 @@
                                                 @php
                                                     $no = 1; // Inisialisasi no
                                                 @endphp
-                                                @foreach ($formizins as $item)
+                                                @foreach ($formsetharis as $item)
                                                     <tr>
                                                         <td>{{ $no }}</td>
                                                         <td>{{ $item->nama }}</td>
                                                         <td>{{ $item->jabatan }}</td>
                                                         <td>{{ $item->tanggal }}</td>
-                                                        <td>{{ $item->jumlah_izin }} Hari</td>
+                                                        <td>{{ $item->waktu }}</td>
                                                         <td>
                                                             @if($item->approve_atasan == 0)
                                                                 <i class="fas fa-hourglass-half text-warning" data-toggle="tooltip" title="Menunggu Persetujuan"></i> Waiting
@@ -83,17 +83,17 @@
                                                         <td>
                                                             <div class="btn-group d-flex flex-column">
                                                                 <!-- Atasan Approve/Unapprove/Reject Buttons -->
-                                                                <form method="post" action="{{ route('formizin.approve-atasan', $item->id) }}">
+                                                                <form method="post" action="{{ route('formsethari.approve-atasan', $item->id) }}">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-sm btn-success btn-action mb-2 w-100" data-toggle="tooltip" title="Approve Atasan"><i class="fas fa-check"></i> Approve</button>
                                                                 </form>
 
-                                                                <form method="post" action="{{ route('formizin.unapprove-atasan', $item->id) }}">
+                                                                <form method="post" action="{{ route('formsethari.unapprove-atasan', $item->id) }}">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-sm btn-warning btn-action mb-2 w-100" data-toggle="tooltip" title="Unapprove Atasan"><i class="fas fa-undo"></i> Unapprove</button>
                                                                 </form>
 
-                                                                <form method="post" action="{{ route('formizin.reject-atasan', $item->id) }}">
+                                                                <form method="post" action="{{ route('formsethari.reject-atasan', $item->id) }}">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-sm btn-danger btn-action w-100" data-toggle="tooltip" title="Reject Atasan"><i class="fas fa-times"></i> Reject</button>
                                                                 </form>
@@ -102,17 +102,17 @@
                                                         <td>
                                                             <div class="btn-group d-flex flex-column">
                                                                 <!-- SDM Approve/Unapprove/Reject Buttons -->
-                                                                <form method="post" action="{{ route('formizin.approve-sdm', $item->id) }}">
+                                                                <form method="post" action="{{ route('formsethari.approve-sdm', $item->id) }}">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-sm btn-success btn-action mb-2 w-100" data-toggle="tooltip" title="Approve SDM"><i class="fas fa-check"></i> Approve</button>
                                                                 </form>
 
-                                                                <form method="post" action="{{ route('formizin.unapprove-sdm', $item->id) }}">
+                                                                <form method="post" action="{{ route('formsethari.unapprove-sdm', $item->id) }}">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-sm btn-warning btn-action mb-2 w-100" data-toggle="tooltip" title="Unapprove SDM"><i class="fas fa-undo"></i> Unapprove</button>
                                                                 </form>
 
-                                                                <form method="post" action="{{ route('formizin.reject-sdm', $item->id) }}">
+                                                                <form method="post" action="{{ route('formsethari.reject-sdm', $item->id) }}">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-sm btn-danger btn-action w-100" data-toggle="tooltip" title="Reject SDM"><i class="fas fa-times"></i> Reject</button>
                                                                 </form>
@@ -168,8 +168,8 @@
                                                                                     <td>{{ $item->tanggal }}</td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <th>Jumlah Izin</th>
-                                                                                    <td>{{ $item->jumlah_izin }} Hari</td>
+                                                                                    <th>Waktu</th>
+                                                                                    <td>{{ $item->waktu }}</td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <th>No HP</th>
@@ -211,31 +211,6 @@
                                                                                 <tr>
                                                                                     <th>Tanggal Input</th>
                                                                                     <td>{{ $item->created_at }}</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th>Bukti Pendukung</th>
-                                                                                    <td>
-                                                                                    {{-- Cek jika Bukti pendukung berupa gambar maka tampilkan gambar, jika pdf maka view ke blank page --}}
-                                                                                        @if ($item->bukti_pendukung)
-                                                                                            @php
-                                                                                                $extension = pathinfo($item->bukti_pendukung, PATHINFO_EXTENSION);
-                                                                                            @endphp
-
-                                                                                            @if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif']))
-                                                                                                {{-- Display image --}}
-                                                                                                <img src="{{ asset('assets/media/bukti_pendukung/izin/' . $item->bukti_pendukung) }}" alt="Bukti Pendukung" style="width: 450px; height: auto;">
-
-                                                                                            @elseif (in_array(strtolower($extension), ['pdf']))
-                                                                                                {{-- Display PDF --}}
-                                                                                                <a href="{{ asset('assets/media/bukti_pendukung/izin/' . $item->bukti_pendukung) }}" target="_blank">View PDF</a>
-                                                                                            @else
-                                                                                                {{-- Handle other file types --}}
-                                                                                                <p>File type not supported</p>
-                                                                                            @endif
-                                                                                        @else
-                                                                                            No File Available
-                                                                                        @endif
-                                                                                    </td>
                                                                                 </tr>
                                                                                 </table>
                                                                             </div>

@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class FormIzin extends Model
+class FormTgsKlrKantor extends Model
 {
     use HasFactory;
 
-    protected $table = 'izin';
+    protected $table = 'tugas_keluar_kantor';
     protected $primaryKey = 'id';
     protected $keyType = 'string';
 
@@ -19,7 +19,8 @@ class FormIzin extends Model
         'nama',
         'jabatan',
         'tanggal',
-        'jumlah_izin',
+        'jam_mulai',
+        'jam_selesai',
         'no_hp',
         'keperluan',
         'bukti_pendukung',

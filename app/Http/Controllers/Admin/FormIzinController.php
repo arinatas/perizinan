@@ -13,7 +13,7 @@ class FormIzinController extends Controller
 {
     public function index()
     {
-        $formizins = FormIzin::all();
+        $formizins = FormIzin::with('devisi')->get();
             return view('admin.pengajuan.formizin.index', [
                 'title' => 'Pengajuan Izin',
                 'section' => 'Pengajuan',
