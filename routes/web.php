@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\FormIzinController;
 use App\Http\Controllers\Admin\FormSakitController;
 use App\Http\Controllers\Admin\FormSetHariController;
 use App\Http\Controllers\Admin\FormMeninggalkanTugasController;
+use App\Http\Controllers\Admin\FormTgsKlrKantorController;
 // User
 use App\Http\Controllers\User\UserController;
 
@@ -112,6 +113,14 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/formmeninggalkantugas/reject-atasan/{id}', [FormMeninggalkanTugasController::class, 'rejectAtasan'])->middleware('auth')->name('formmeninggalkantugas.reject-atasan'); // Reject Atasan
     Route::post('/formmeninggalkantugas/reject-sdm/{id}', [FormMeninggalkanTugasController::class, 'rejectSdm'])->middleware('auth')->name('formmeninggalkantugas.reject-sdm'); // Reject SDM
 
+    // Form Tugas Keluar Kantor
+    Route::get('/formtgsklrkantor', [FormTgsKlrKantorController::class, 'index'])->middleware('auth')->name('formtgsklrkantor');
+    Route::post('/formtgsklrkantor/approve-atasan/{id}', [FormTgsKlrKantorController::class, 'approveAtasan'])->middleware('auth')->name('formtgsklrkantor.approve-atasan');// Approve Atasan
+    Route::post('/formtgsklrkantor/approve-sdm/{id}', [FormTgsKlrKantorController::class, 'approveSdm'])->middleware('auth')->name('formtgsklrkantor.approve-sdm'); // Approve SDM
+    Route::post('/formtgsklrkantor/unapprove-atasan/{id}', [FormTgsKlrKantorController::class, 'unapproveAtasan'])->middleware('auth')->name('formtgsklrkantor.unapprove-atasan'); // Unapprove Atasan
+    Route::post('/formtgsklrkantor/unapprove-sdm/{id}', [FormTgsKlrKantorController::class, 'unapproveSdm'])->middleware('auth')->name('formtgsklrkantor.unapprove-sdm'); // Unapprove SDM
+    Route::post('/formtgsklrkantor/reject-atasan/{id}', [FormTgsKlrKantorController::class, 'rejectAtasan'])->middleware('auth')->name('formtgsklrkantor.reject-atasan'); // Reject Atasan
+    Route::post('/formtgsklrkantor/reject-sdm/{id}', [FormTgsKlrKantorController::class, 'rejectSdm'])->middleware('auth')->name('formtgsklrkantor.reject-sdm'); // Reject SDM
 });
 
 
