@@ -16,6 +16,8 @@ use App\Http\Controllers\Admin\FormMeninggalkanTugasController;
 use App\Http\Controllers\Admin\FormTgsKlrKantorController;
 // User
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\User\FormRequestIzinController;
+
 
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
@@ -42,6 +44,8 @@ Route::patch('password', [ChangePasswordController::class, 'update'])->name('pas
 Route::get('/adminDashboard', [AdminController::class, 'index'])->middleware('auth')->name('adminDashboard');
 
 Route::get('/userDashboard', [UserController::class, 'index'])->middleware('auth')->name('userDashboard');
+Route::get('/requestFormIzin', [FormRequestIzinController::class, 'izin'])->middleware('auth')->name('requestFormIzin');
+Route::post('/storeRequestIzin', [FormRequestIzinController::class, 'storeRequestIzin'])->middleware('auth')->name('storeRequestIzin');
 
 Route::middleware(['admin'])->group(function () {
     // Dashboard
@@ -62,7 +66,7 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/editAtasan/{id}', [AtasanController::class, 'edit'])->middleware('auth')->name('edit.atasan');
     Route::post('/updateAtasan/{id}', [AtasanController::class, 'update'])->middleware('auth')->name('update.atasan');
     Route::delete('/deleteAtasan/{id}', [AtasanController::class, 'destroy'])->middleware('auth')->name('destroy.atasan');
-    
+
     // Master Jenis Cuti
     Route::get('/jeniscuti', [JenisCutiController::class, 'index'])->middleware('auth')->name('jeniscuti');
     Route::post('/jeniscuti', [JenisCutiController::class, 'store'])->middleware('auth')->name('insert.jeniscuti');
