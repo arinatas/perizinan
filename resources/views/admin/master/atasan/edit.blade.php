@@ -26,52 +26,26 @@
 						<!--end::Heading-->
 						<!--begin::Table-->
                         <div class="mt-15">
-                            <form action="{{ route('update.akun', $akun->id ) }}" method="POST">
+                            <form action="{{ route('update.atasan', $atasan->id ) }}" method="POST">
                                 @csrf
 								<div class="mb-10">
-                                    <label for="exampleFormControlInput1" class="required form-label">Nama</label>
-                                    <input type="text" value="{{$akun->nama}}" class="form-control form-control-solid" required name="nama"/>
+                                    <label for="exampleFormControlInput1" class="required form-label">Nama Devisi</label>
+                                    <input type="text" value="{{$atasan->nama_devisi}}" class="form-control form-control-solid" required name="nama_devisi"/>
                                 </div>
 								<div class="mb-10">
-                                    <label for="exampleFormControlInput1" class="required form-label">Jabatan</label>
-                                    <input type="text" value="{{$akun->jabatan}}" class="form-control form-control-solid" required name="jabatan"/>
-                                </div>
-                                <div class="mb-10">
-                                    <label for="exampleFormControlInput1" class="required form-label">Email</label>
-                                    <input type="text" value="{{$akun->email}}" class="form-control form-control-solid" required name="email"/>
-                                </div>
-								<div class="mb-10">
-									<label for="exampleFormControlInput1" class="required form-label">Atasan</label>
-									<select class="form-control form-control-solid" name="id_devisi" required>
-										<option value="">Pilih Atasan</option> <!-- Placeholder option -->
-
-										<!-- Loop melalui atasan dan buat opsi dropdown -->
-										@foreach($atasans as $atasan)
-											@if ($atasan->atasanUser) <!-- Pengecekan apakah atasan memiliki data atasanUser -->
-												<option value="{{ $atasan->id }}" {{ $akun->id_devisi == $atasan->id ? 'selected' : '' }}>
-													{{ $atasan->atasanUser->nama ?? 'Nama Tidak Tersedia' }}
-												</option>
-											@endif
+									<label for="exampleFormControlInput1" class="form-label">Atasan</label>
+									<!-- begin::Select Dropdown -->
+									<select class="form-control form-control-solid" name="id_atasan">
+										<option value="">Pilih Atasan</option>
+										@foreach ($users as $user)
+											<option value="{{ $user->id }}" @if ($user->id == $atasan->id_atasan) selected @endif>{{ $user->nama }}</option>
 										@endforeach
 									</select>
-								</div>
-								<div class="mb-10">
-									<label for="exampleFormControlInput1" class="required form-label">Role</label>
-									<select class="form-select form-select-solid" name="is_admin" required>
-										<option value="0" {{$akun->is_admin == 0 ? 'selected' : ''}}>User</option>
-										<option value="1" {{$akun->is_admin == 1 ? 'selected' : ''}}>Admin</option>
-									</select>
-								</div>
-								<div class="mb-10">
-									<label for="exampleFormControlInput1" class="required form-label">Status</label>
-									<select class="form-select form-select-solid" name="is_aktif" required>
-										<option value="0" {{$akun->is_aktif == 0 ? 'selected' : ''}}>Nonaktif</option>
-										<option value="1" {{$akun->is_aktif == 1 ? 'selected' : ''}}>Aktif</option>
-									</select>
+									<!-- end::Select Dropdown -->
 								</div>
                                 <div class="d-flex justify-content-end">
                                     <!--begin::Actions-->
-                                    <a href="{{ route('akun') }}" class="btn btn-secondary">
+                                    <a href="{{ route('atasan') }}" class="btn btn-secondary">
                                         <span class="indicator-label">
                                             Cancel
                                         </span>

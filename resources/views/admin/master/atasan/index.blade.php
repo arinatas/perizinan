@@ -20,24 +20,20 @@
                                                     <h2 class="fs-2x fw-bolder mb-0">Master {{ $title }}</h2>
                                                 </div>
                                                 <div class="d-inline">
-                                                    <a href="#" class="btn btn-sm btn-primary fs-6" data-bs-toggle="modal" data-bs-target="#kt_modal_new_akun">Tambah</a>
+                                                    <a href="#" class="btn btn-sm btn-primary fs-6" data-bs-toggle="modal" data-bs-target="#kt_modal_new_atasan">Tambah</a>
                                                 </div>
                                             <!--end::Title-->
                                         </div>
                                         <!--end::Heading-->
                                         <!--begin::Table-->
-                                        @if ($akuns )
+                                        @if ($atasans )
                                         <div class="table-responsive my-10 mx-8">
                                             <table class="table table-striped gy-7 gs-7">
                                                 <thead>
                                                     <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                                                         <th class="min-w-50px">No</th>
-                                                        <th class="min-w-100px">Nama</th>
-                                                        <th class="min-w-100px">Email</th>
-                                                        <th class="min-w-100px">Jabatan</th>
+                                                        <th class="min-w-100px">Nama Devisi</th>
                                                         <th class="min-w-100px">Atasan</th>
-                                                        <th class="min-w-100px">Role</th>
-                                                        <th class="min-w-100px">Status</th>
                                                         <th class="min-w-100px">Action</th>
                                                     </tr>
                                                 </thead>
@@ -45,36 +41,20 @@
                                                     @php
                                                         $no = 1; // Inisialisasi no
                                                     @endphp
-                                                    @foreach ($akuns as $item)
+                                                    @foreach ($atasans as $item)
                                                     <tr>
                                                         <td>{{ $no }}</td>
-                                                        <td>{{ $item->nama }}</td>
-                                                        <td>{{ $item->email }}</td>
-                                                        <td>{{ $item->jabatan }}</td>
+                                                        <td>{{ $item->nama_devisi }}</td>
                                                         <td>
-                                                            @if ($item->devisi->atasanUser)
-                                                                {{ $item->devisi->atasanUser->nama }}
+                                                            @if ($item->atasanUser)
+                                                                {{ $item->atasanUser->nama }}
                                                             @else
                                                                 -
                                                             @endif
                                                         </td>
                                                         <td>
-                                                            @if ($item->is_admin == 1)
-                                                                Admin
-                                                            @elseif ($item->is_admin == 0)
-                                                                User
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            @if ($item->is_aktif == 1)
-                                                                Aktif
-                                                            @elseif ($item->is_aktif == 0)
-                                                                Nonaktif
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            <a href="{{ route('edit.akun', $item->id ) }}" class="btn btn-sm btn-primary btn-action" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                                                            <form id="form-delete" action="{{ route('destroy.akun', $item->id ) }}" method="POST"
+                                                            <a href="{{ route('edit.atasan', $item->id ) }}" class="btn btn-sm btn-primary btn-action" data-toggle="tooltip" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                                                            <form id="form-delete" action="{{ route('destroy.atasan', $item->id ) }}" method="POST"
                                                             class="d-inline-block">
                                                             @csrf
                                                             @method('DELETE')
@@ -82,7 +62,6 @@
                                                                 class="btn btn-sm btn-danger btn-action" onclick="confirmDelete(event)"
                                                                 ><i class="fas fa-trash"></i></i></button>
                                                             </form>
-                                                            <a href="{{ route('reset.akun', $item->id ) }}" class="btn btn-sm btn-warning btn-action" data-toggle="tooltip" title="Reset"><i class="fas fa-sync"></i></a>
                                                         </td>
                                                     </tr>
                                                     @php
@@ -126,7 +105,7 @@
                                 </div>
                                 <!--end::Card-->
                                 <!--begin::Modal-->
-                                <div class="modal fade" id="kt_modal_new_akun" tabindex="-1" aria-hidden="true">
+                                <div class="modal fade" id="kt_modal_new_atasan" tabindex="-1" aria-hidden="true">
                                     <!--begin::Modal dialog-->
                                     <div class="modal-dialog modal-dialog-centered mw-650px">
                                         <!--begin::Modal content-->
@@ -153,70 +132,31 @@
                                             <!--begin::Modal body-->
                                             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                                                 <!--begin::Form-->
-                                                <form action="{{ route('insert.akun') }}" method="POST">
+                                                <form action="{{ route('insert.atasan') }}" method="POST">
                                                     @csrf
                                                     <!--begin::Input group-->
                                                     <div class="d-flex flex-column mb-7 fv-row">
                                                         <!--begin::Label-->
                                                         <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                                            <span class="required">Nama</span>
+                                                            <span class="required">Nama Devisi</span>
                                                         </label>
                                                         <!--end::Label-->
-                                                        <input class="form-control form-control-solid" type="text" name="nama" required value=""/>
+                                                        <input class="form-control form-control-solid" type="text" name="nama_devisi" required value=""/>
                                                     </div>
                                                     <div class="d-flex flex-column mb-7 fv-row">
                                                         <!--begin::Label-->
                                                         <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                                            <span class="required">Jabatan</span>
+                                                            <span>Atasan</span>
                                                         </label>
                                                         <!--end::Label-->
-                                                        <input class="form-control form-control-solid" type="text" name="jabatan" required value=""/>
-                                                    </div>
-                                                    <div class="d-flex flex-column mb-7 fv-row">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                                            <span class="required">Atasan</span>
-                                                        </label>
-                                                        <!--end::Label-->
-
-                                                        <!-- Ubah input menjadi elemen select -->
-                                                        <select class="form-control form-control-solid" name="id_devisi" required>
-                                                            <option value="">Pilih Atasan</option> <!-- Opsi penanda tempat -->
-
-                                                            <!-- Loop melalui devisis dan akses relasi atasanUser -->
-                                                            @foreach($atasans as $atasan)
-                                                                @if($atasan->atasanUser) <!-- Periksa apakah atasanUser ada -->
-                                                                    <option value="{{ $atasan->id }}">{{ $atasan->atasanUser->nama ?? 'Nama Tidak Tersedia' }}</option>
-                                                                @endif
+                                                        <!--begin::Select Dropdown-->
+                                                        <select class="form-control form-control-solid" name="id_atasan">
+                                                            <option value="">Pilih Atasan</option>
+                                                            @foreach ($users as $user)
+                                                                <option value="{{ $user->id }}">{{ $user->nama }}</option>
                                                             @endforeach
                                                         </select>
-                                                    </div>
-                                                    <div class="d-flex flex-column mb-7 fv-row">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                                            <span class="required">Email</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <input class="form-control form-control-solid" type="text" name="email" required value=""/>
-                                                    </div>
-                                                    <div class="d-flex flex-column mb-7 fv-row">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                                            <span class="required">Password</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <input class="form-control form-control-solid" type="text" name="password" required value=""/>
-                                                    </div>
-                                                    <div class="d-flex flex-column mb-7 fv-row">
-                                                        <!--begin::Label-->
-                                                        <label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
-                                                            <span class="required">Role</span>
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <select class="form-select form-select-solid" name="is_admin" required>
-                                                            <option value="0">User</option>
-                                                            <option value="1">Admin</option>
-                                                        </select>
+                                                        <!--end::Select Dropdown-->
                                                     </div>
                                                     <!--end::Input group-->
                                                     <!--begin::Actions-->

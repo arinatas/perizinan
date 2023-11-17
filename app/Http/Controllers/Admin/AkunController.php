@@ -7,23 +7,37 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\Akun;
+use App\Models\Atasan;
 use Illuminate\Support\Facades\Hash;
 
 class AkunController extends Controller
 {
     public function index()
     {
-        $akuns = Akun::all();
-            return view('admin.master.akun.index', [
-                'title' => 'User',
-                'section' => 'Master',
-                'active' => 'user',
-                'akuns' => $akuns,
-            ]);
+        // Ambil semua pengguna dengan devisi dan atasan terkait
+        $akuns = Akun::with(['devisi', 'devisi.atasanUser'])->get();
+
+        // Ambil semua atasan
+        $atasans = Atasan::all(); 
+
+        return view('admin.master.akun.index', [
+            'title' => 'User',
+            'section' => 'Master',
+            'active' => 'user',
+            'akuns' => $akuns,
+            'atasans' => $atasans, // Kirim data atasan ke tampilan
+        ]);
     }
 
     public function store(Request $request)
     {
+        // Pengecekan apakah email sudah ada
+        $existingEmail = Akun::where('email', $request->email)->exists();
+    
+        if ($existingEmail) {
+            return redirect()->back()->withInput()->with('insertFail', 'Email sudah digunakan.');
+        }
+    
         // validasi input yang didapatkan dari request
         $validator = Validator::make($request->all(), [
             'email' => 'required|string|max:255',
@@ -33,20 +47,20 @@ class AkunController extends Controller
             'is_admin' => 'required|integer|between:0,1',
             'id_devisi' => 'required|integer'
         ]);
-
+    
         // kalau ada error kembalikan error
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator)->withInput();
         }
-
+    
         // simpan data ke database
         try {
             DB::beginTransaction();
-
-             // Hash password sebelum menyimpannya ke database
+    
+            // Hash password sebelum menyimpannya ke database
             $hashedPassword = Hash::make($request->password);
-
-            // insert ke tabel positions
+    
+            // insert ke tabel users
             Akun::create([
                 'email' => $request->email,
                 'password' => $hashedPassword,
@@ -55,33 +69,37 @@ class AkunController extends Controller
                 'is_admin' => $request->is_admin,
                 'id_devisi' => $request->id_devisi
             ]);
-
+    
             DB::commit();
-
-            return redirect()->back()->with('insertSuccess', 'Data berhasil di Inputkan');
-
+    
+            return redirect()->back()->with('insertSuccess', 'Data berhasil diinputkan');
+    
         } catch(Exception $e) {
             DB::rollBack();
-            // dd($e->getMessage());
-            return redirect()->back()->with('insertFail', $e->getMessage());
+            return redirect()->back()->withInput()->with('insertFail', $e->getMessage());
         }
-    }
+    }    
 
     public function edit($id)
     {
         $akun = Akun::find($id);
-
+    
         if (!$akun) {
             return redirect()->back()->with('dataNotFound', 'Data tidak ditemukan');
         }
-
+    
+        // Ambil semua data atasan
+        $atasans = Atasan::all();
+    
         return view('admin.master.akun.edit', [
             'title' => 'User',
-            'secction' => 'Master',
+            'section' => 'Master',
             'active' => 'user',
             'akun' => $akun,
+            'atasans' => $atasans, // Kirim data atasan ke tampilan
         ]);
     }
+      
 
     public function update(Request $request, $id)
     {
