@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\AtasanController;
 use App\Http\Controllers\Admin\JenisCutiController;
 use App\Http\Controllers\Admin\CutiController;
 use App\Http\Controllers\Admin\FormIzinController;
+use App\Http\Controllers\Admin\FormSakitController;
 // User
 use App\Http\Controllers\User\UserController;
 
@@ -82,7 +83,14 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/formizin/reject-atasan/{id}', [FormIzinController::class, 'rejectAtasan'])->middleware('auth')->name('formizin.reject-atasan'); // Reject Atasan
     Route::post('/formizin/reject-sdm/{id}', [FormIzinController::class, 'rejectSdm'])->middleware('auth')->name('formizin.reject-sdm'); // Reject SDM
 
-
+    // Form Sakit
+    Route::get('/formsakit', [FormSakitController::class, 'index'])->middleware('auth')->name('formsakit');
+    Route::post('/formsakit/approve-atasan/{id}', [FormSakitController::class, 'approveAtasan'])->middleware('auth')->name('formsakit.approve-atasan');// Approve Atasan
+    Route::post('/formsakit/approve-sdm/{id}', [FormSakitController::class, 'approveSdm'])->middleware('auth')->name('formsakit.approve-sdm'); // Approve SDM
+    Route::post('/formsakit/unapprove-atasan/{id}', [FormSakitController::class, 'unapproveAtasan'])->middleware('auth')->name('formsakit.unapprove-atasan'); // Unapprove Atasan
+    Route::post('/formsakit/unapprove-sdm/{id}', [FormSakitController::class, 'unapproveSdm'])->middleware('auth')->name('formsakit.unapprove-sdm'); // Unapprove SDM
+    Route::post('/formsakit/reject-atasan/{id}', [FormSakitController::class, 'rejectAtasan'])->middleware('auth')->name('formsakit.reject-atasan'); // Reject Atasan
+    Route::post('/formsakit/reject-sdm/{id}', [FormSakitController::class, 'rejectSdm'])->middleware('auth')->name('formsakit.reject-sdm'); // Reject SDM
 
 
 });
