@@ -85,8 +85,8 @@
                         <span class="menu-title">Form Sakit</span>
                     </a>
                 </div>
-                <div class="menu-item {{ ($active === "formizin") ? 'here show' : '' }}">
-                    <a class="menu-link" href="{{ url('formizin') }}">
+                <div class="menu-item {{ ($active === "formsethari") ? 'here show' : '' }}">
+                    <a class="menu-link" href="{{ url('formsethari') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
                             <span class="svg-icon svg-icon-2">

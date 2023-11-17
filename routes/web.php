@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\JenisCutiController;
 use App\Http\Controllers\Admin\CutiController;
 use App\Http\Controllers\Admin\FormIzinController;
 use App\Http\Controllers\Admin\FormSakitController;
+use App\Http\Controllers\Admin\FormSetHariController;
 // User
 use App\Http\Controllers\User\UserController;
 
@@ -92,6 +93,14 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/formsakit/reject-atasan/{id}', [FormSakitController::class, 'rejectAtasan'])->middleware('auth')->name('formsakit.reject-atasan'); // Reject Atasan
     Route::post('/formsakit/reject-sdm/{id}', [FormSakitController::class, 'rejectSdm'])->middleware('auth')->name('formsakit.reject-sdm'); // Reject SDM
 
+    // Form Sakit
+    Route::get('/formsethari', [FormSetHariController::class, 'index'])->middleware('auth')->name('formsethari');
+    Route::post('/formsethari/approve-atasan/{id}', [FormSetHariController::class, 'approveAtasan'])->middleware('auth')->name('formsethari.approve-atasan');// Approve Atasan
+    Route::post('/formsethari/approve-sdm/{id}', [FormSetHariController::class, 'approveSdm'])->middleware('auth')->name('formsethari.approve-sdm'); // Approve SDM
+    Route::post('/formsethari/unapprove-atasan/{id}', [FormSetHariController::class, 'unapproveAtasan'])->middleware('auth')->name('formsethari.unapprove-atasan'); // Unapprove Atasan
+    Route::post('/formsethari/unapprove-sdm/{id}', [FormSetHariController::class, 'unapproveSdm'])->middleware('auth')->name('formsethari.unapprove-sdm'); // Unapprove SDM
+    Route::post('/formsethari/reject-atasan/{id}', [FormSetHariController::class, 'rejectAtasan'])->middleware('auth')->name('formsethari.reject-atasan'); // Reject Atasan
+    Route::post('/formsethari/reject-sdm/{id}', [FormSetHariController::class, 'rejectSdm'])->middleware('auth')->name('formsethari.reject-sdm'); // Reject SDM
 
 });
 
