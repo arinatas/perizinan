@@ -41,7 +41,7 @@ class OutOfficeAssignController extends Controller
             'jam_mulai' => 'required',
             'jam_selesai' => 'required',
             'no_hp' => 'required|string|max:100',
-            'bukti_pendukung' => 'required|file|max:2048|mimes:jpeg,png',
+            'bukti_pendukung' => 'required|file|max:2048|mimes:jpeg,png,pdf,jpg',
             'keperluan' => 'required|string|max:255',
         ]);
 

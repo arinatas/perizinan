@@ -8,27 +8,27 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
-use App\Models\FormTgsKlrKantor;
+use App\Models\FormLembur;
 
 
 class OvertimeController extends Controller
 {
 
-    public function outOfficeAssign()
+    public function overtime()
     {
-        $myFormTgsKlrKantor = FormTgsKlrKantor::where('id_user', auth()->user()->id)
+        $myFormLembur = FormLembur::where('id_user', auth()->user()->id)
                         ->orderBy('created_at', 'desc')
                         ->get();
 
-        return view('user.form.outOfficeAssign', [
-            'title' => 'Tugas Keluar Kantor',
+        return view('user.form.overtime', [
+            'title' => 'Lembur',
             'section' => 'Form',
-            'myFormTgsKlrKantor' => $myFormTgsKlrKantor,
-            'active' => 'Tugas Keluar Kantor',
+            'myFormLembur' => $myFormLembur,
+            'active' => 'Lembur',
         ]);
     }
 
-    public function storeRequestOutOfficeAssign(Request $request) {
+    public function storeRequestOvertime(Request $request) {
         // validasi input yang didapatkan dari request
         $validator = Validator::make($request->all(), [
             'id_user' => 'required',
@@ -40,9 +40,9 @@ class OvertimeController extends Controller
             'tanggal' => 'required|date',
             'jam_mulai' => 'required',
             'jam_selesai' => 'required',
-            'no_hp' => 'required|string|max:100',
-            'bukti_pendukung' => 'required|file|max:2048|mimes:jpeg,png',
-            'keperluan' => 'required|string|max:255',
+            'durasi_lembur' => 'required',
+            'bukti_pendukung' => 'required|file|max:2048|mimes:jpeg,png,pdf,jpg',
+            'keterangan_pekerjaan' => 'required|string|max:255',
         ]);
 
         // kalau ada error kembalikan error
@@ -63,7 +63,7 @@ class OvertimeController extends Controller
             }
 
             // insert data pada tabel t_jurnal
-            $FormTgsKlrKantor = FormTgsKlrKantor::create([
+            $FormLembur = FormLembur::create([
                 'id_user' => $request->id_user,
                 'id_devisi' => $request->id_devisi,
                 'nama' => $request->nama,
@@ -71,8 +71,8 @@ class OvertimeController extends Controller
                 'tanggal' => $request->tanggal,
                 'jam_mulai' => $request->jam_mulai,
                 'jam_selesai' => $request->jam_selesai,
-                'no_hp' => $request->no_hp,
-                'keperluan' => $request->keperluan,
+                'durasi_lembur' => $request->durasi_lembur,
+                'keterangan_pekerjaan' => $request->keterangan_pekerjaan,
                 'bukti_pendukung' => $fileName,
                 'approve_atasan' => $request->approve_atasan,
                 'approve_sdm' => $request->approve_sdm,
@@ -80,7 +80,7 @@ class OvertimeController extends Controller
 
             DB::commit();
 
-            return redirect('/requestFormOutOfficeAssign')->with('insertSuccess', 'Request created successfully.');
+            return redirect('/requestFormOvertime')->with('insertSuccess', 'Request created successfully.');
 
         } catch (Exception $e) {
             DB::rollBack();

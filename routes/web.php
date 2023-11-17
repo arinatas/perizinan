@@ -23,6 +23,7 @@ use App\Http\Controllers\User\SakitController;
 use App\Http\Controllers\User\HalfDayController;
 use App\Http\Controllers\User\LeaveTaskController;
 use App\Http\Controllers\User\OutOfficeAssignController;
+use App\Http\Controllers\User\OvertimeController;
 
 
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -59,6 +60,8 @@ Route::get('/requestFormLeaveTask', [LeaveTaskController::class, 'leaveTask'])->
 Route::post('/storeRequestLeaveTask', [LeaveTaskController::class, 'storeRequestLeaveTask'])->middleware('auth')->name('storeRequestLeaveTask');
 Route::get('/requestFormOutOfficeAssign', [OutOfficeAssignController::class, 'outOfficeAssign'])->middleware('auth')->name('requestFormOutOfficeAssign');
 Route::post('/storeRequestOutOfficeAssign', [OutOfficeAssignController::class, 'storeRequestOutOfficeAssign'])->middleware('auth')->name('storeRequestOutOfficeAssign');
+Route::get('/requestFormOvertime', [OvertimeController::class, 'overtime'])->middleware('auth')->name('requestFormOvertime');
+Route::post('/storeRequestOvertime', [OvertimeController::class, 'storeRequestOvertime'])->middleware('auth')->name('storeRequestOvertime');
 
 Route::middleware(['admin'])->group(function () {
     // Dashboard

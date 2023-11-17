@@ -62,7 +62,7 @@
 					</div>
 					<div class="card-body pb-10">
 						<!--Begin::Table-->
-						<form id="my-form" action="/storeRequestIzin" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+						<form id="my-form" action="/storeRequestOvertime" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
 							@csrf
 							<!--begin::Input group-->
 							<div class="row">
@@ -77,7 +77,7 @@
 								</div>
 								<!--end::Input group-->
 								<!--begin::Input group-->
-								<div class="d-flex flex-column mb-7 col-lg-4">
+								<div class="d-flex flex-column mb-7 col-lg-3">
 									<!--begin::Label-->
 									<label class="d-flex align-items-center fs-6 fw-bold form-label mb-2">
 										<span class="required">Tanggal</span>
@@ -104,28 +104,33 @@
 								</div>
 								<!--end::Input group-->
 								<!--begin::Input group-->
-								<div class="d-flex flex-column mb-7 col-lg-4">
+								<div class="d-flex flex-column mb-7 col-lg-3">
 									<!--begin::Label-->
 									<label class="d-flex align-items-center fs-6 fw-bold mb-2">
-										<span class="required">Jumlah Izin</span>
+										<span class="required">Jam Mulai</span>
 									</label>
 									<!--end::Label-->
-                                    <select class="form-select form-select-solid" required data-control="select2" data-hide-search="true" data-placeholder="Pilih jumlah izin" name="jumlah_izin">
-										<option value="">Pilih jumlah izin</option>
-										<option value="1">1 Hari</option>
-										<option value="2">2 Hari</option>
-										<option value="3">3 Hari</option>
-									</select>
+                                    <input type="time" class="form-control form-control-solid" required name="jam_mulai">
 								</div>
 								<!--end::Input group-->
 								<!--begin::Input group-->
-								<div class="d-flex flex-column mb-7 col-lg-4">
+								<div class="d-flex flex-column mb-7 col-lg-3">
 									<!--begin::Label-->
 									<label class="d-flex align-items-center fs-6 fw-bold mb-2">
-										<span class="required">Nomor HP</span>
+										<span class="required">Jam Selesai</span>
 									</label>
 									<!--end::Label-->
-									<input type="number" required class="form-control form-control-solid" placeholder="08123123123" name="no_hp" />
+                                    <input type="time" class="form-control form-control-solid" required name="jam_selesai">
+								</div>
+								<!--end::Input group-->
+								<!--begin::Input group-->
+								<div class="d-flex flex-column mb-7 col-lg-3">
+									<!--begin::Label-->
+									<label class="d-flex align-items-center fs-6 fw-bold mb-2">
+										<span class="required">Durasi Lembur</span>
+									</label>
+									<!--end::Label-->
+                                    <input type="time" class="form-control form-control-solid" required name="durasi_lembur">
 								</div>
 								<!--end::Input group-->
 								<!--begin::Input group-->
@@ -143,8 +148,8 @@
 								<!--end::Input group-->
 								<!--begin::Input group-->
 								<div class="d-flex flex-column mb-7 col-lg-6">
-									<label class="required fs-6 fw-bold mb-2">Keperluan</label>
-									<textarea class="form-control form-control-solid" required rows="3" name="keperluan" placeholder="Deskripsi Keeperluan"></textarea>
+									<label class="required fs-6 fw-bold mb-2">Keterangan Pekerjaan</label>
+									<textarea class="form-control form-control-solid" required rows="3" name="keterangan_pekerjaan" placeholder="Deskripsi Keterangan"></textarea>
 								</div>
 								<!--end::Input group-->
 							</div>
@@ -184,20 +189,20 @@
                                     <tr class="fw-bold fs-5">
                                         <th>Id</th>
                                         <th>Tanggal</th>
-                                        <th>Jml Izin</th>
-                                        <th>Keperluan</th>
+                                        <th>Durasi</th>
+                                        <th>Keterangan</th>
                                         <th>Atasan</th>
                                         <th>SDM</th>
                                         <th>Bukti</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($myFormIzin as $item)
+                                    @foreach($myFormLembur as $item)
                                         <tr>
                                             <td>{{ $item->id }}</td>
                                             <td>{{ $item->tanggal }}</td>
-                                            <td>{{ $item->jumlah_izin }}</td>
-                                            <td>{{ $item->keperluan }}</td>
+                                            <td>{{ $item->durasi_lembur }}</td>
+                                            <td>{{ $item->keterangan_pekerjaan }}</td>
                                             <td>
                                                 @if ($item->approve_atasan == 0)
                                                 <span class="badge bg-warning text-dark">Waiting</span>
