@@ -8,27 +8,27 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
-use App\Models\FormIzin;
+use App\Models\FormSetHari;
 
 
-class FormRequestIzinController extends Controller
+class HalfDayController extends Controller
 {
 
-    public function izin()
+    public function halfDay()
     {
-        $myFormIzin = FormIzin::where('id_user', auth()->user()->id)
+        $myFormSetHari = FormSetHari::where('id_user', auth()->user()->id)
                         ->orderBy('created_at', 'desc')
                         ->get();
 
-        return view('user.izin.form_izin', [
-            'title' => 'Izin',
-            'section' => 'Izin',
-            'myFormIzin' => $myFormIzin,
-            'active' => 'Izin',
+        return view('user.form.halfDay', [
+            'title' => 'Setengah Hari',
+            'section' => 'Form',
+            'myFormSetHari' => $myFormSetHari,
+            'active' => 'Setengah Hari',
         ]);
     }
 
-    public function storeRequestIzin (Request $request) {
+    public function storeRequestHalfDay (Request $request) {
         // validasi input yang didapatkan dari request
         $validator = Validator::make($request->all(), [
             'id_user' => 'required',
@@ -38,9 +38,8 @@ class FormRequestIzinController extends Controller
             'nama' => 'required|string',
             'jabatan' => 'required|string',
             'tanggal' => 'required|date',
-            'jumlah_izin' => 'required',
+            'waktu' => 'required',
             'no_hp' => 'required|string|max:100',
-            'bukti_pendukung' => 'required|file|max:2048|mimes:jpeg,png',
             'keperluan' => 'required|string|max:255',
         ]);
 
@@ -53,33 +52,24 @@ class FormRequestIzinController extends Controller
         // mulai try catch untuk menangkap error jika terjadi error pada saat penginputan database
         try{
             DB::beginTransaction();
-            // cek jika ada file upload
-            $fileName = null;
-            if ($request->file('bukti_pendukung')) {
-                $file = $request->file('bukti_pendukung');
-                $fileName = Str::slug(Carbon::now()) . '-' . $file->getClientOriginalName();
-                $file->move(public_path('uploads'), $fileName);
-            }
 
             // insert data pada tabel t_jurnal
-            $formIzin = FormIzin::create([
+            $FormSetHari = FormSetHari::create([
                 'id_user' => $request->id_user,
                 'id_devisi' => $request->id_devisi,
                 'nama' => $request->nama,
                 'jabatan' => $request->jabatan,
                 'tanggal' => $request->tanggal,
-                'jumlah_izin' => $request->jumlah_izin,
+                'waktu' => $request->waktu,
                 'no_hp' => $request->no_hp,
                 'keperluan' => $request->keperluan,
-                'keperluan' => $request->keperluan,
-                'bukti_pendukung' => $fileName,
                 'approve_atasan' => $request->approve_atasan,
                 'approve_sdm' => $request->approve_sdm,
             ]);
 
             DB::commit();
 
-            return redirect('/requestFormIzin')->with('insertSuccess', 'Request created successfully.');
+            return redirect('/requestFormHalfDay')->with('insertSuccess', 'Request created successfully.');
 
         } catch (Exception $e) {
             DB::rollBack();

@@ -229,9 +229,10 @@
                 </div>
                 @endif
 
+                @if (auth()->user()->is_admin == 0)
                 <div class="menu-item">
                     <div class="menu-content pb-2">
-                        <span class="menu-section text-muted text-uppercase fs-8 ls-1">Izin</span>
+                        <span class="menu-section text-muted text-uppercase fs-8 ls-1">Form</span>
                     </div>
                 </div>
                 <div class="menu-item {{ ($active === "Izin") ? 'here show' : '' }}">
@@ -251,6 +252,76 @@
                         <span class="menu-title">Form Izin</span>
                     </a>
                 </div>
+                <div class="menu-item {{ ($active === "Sakit") ? 'here show' : '' }}">
+                    <a class="menu-link" href="{{ url('requestFormSakit') }}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title">Form Sakit</span>
+                    </a>
+                </div>
+                <div class="menu-item {{ ($active === "Setengah Hari") ? 'here show' : '' }}">
+                    <a class="menu-link" href="{{ url('requestFormHalfDay') }}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title">Form Setengah Hari</span>
+                    </a>
+                </div>
+                <div class="menu-item {{ ($active === "Meninggalkan Tugas") ? 'here show' : '' }}">
+                    <a class="menu-link" href="{{ url('requestFormLeaveTask') }}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title">Form Meninggalkan Tugas</span>
+                    </a>
+                </div>
+                <div class="menu-item {{ ($active === "Tugas Keluar Kantor") ? 'here show' : '' }}">
+                    <a class="menu-link" href="{{ url('requestFormOutOfficeAssign') }}">
+                        <span class="menu-icon">
+                            <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
+                            <span class="svg-icon svg-icon-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <rect x="2" y="2" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black" />
+                                    <rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black" />
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </span>
+                        <span class="menu-title">Form Tugas Keluar Kantor</span>
+                    </a>
+                </div>
+                @endif
+
 
             </div>
             <!--end::Menu-->

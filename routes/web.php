@@ -16,7 +16,11 @@ use App\Http\Controllers\Admin\FormMeninggalkanTugasController;
 use App\Http\Controllers\Admin\FormTgsKlrKantorController;
 // User
 use App\Http\Controllers\User\UserController;
-use App\Http\Controllers\User\FormRequestIzinController;
+use App\Http\Controllers\User\IzinController;
+use App\Http\Controllers\User\SakitController;
+use App\Http\Controllers\User\HalfDayController;
+use App\Http\Controllers\User\LeaveTaskController;
+use App\Http\Controllers\User\OutOfficeAssignController;
 
 
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -41,11 +45,18 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::get('password', [ChangePasswordController::class, 'edit'])->name('password.edit')->middleware('auth');
 Route::patch('password', [ChangePasswordController::class, 'update'])->name('password.edit')->middleware('auth');
 
-Route::get('/adminDashboard', [AdminController::class, 'index'])->middleware('auth')->name('adminDashboard');
-
+// user
 Route::get('/userDashboard', [UserController::class, 'index'])->middleware('auth')->name('userDashboard');
-Route::get('/requestFormIzin', [FormRequestIzinController::class, 'izin'])->middleware('auth')->name('requestFormIzin');
-Route::post('/storeRequestIzin', [FormRequestIzinController::class, 'storeRequestIzin'])->middleware('auth')->name('storeRequestIzin');
+Route::get('/requestFormIzin', [IzinController::class, 'izin'])->middleware('auth')->name('requestFormIzin');
+Route::post('/storeRequestIzin', [IzinController::class, 'storeRequestIzin'])->middleware('auth')->name('storeRequestIzin');
+Route::get('/requestFormSakit', [SakitController::class, 'sakit'])->middleware('auth')->name('requestFormSakit');
+Route::post('/storeRequestSakit', [SakitController::class, 'storeRequestSakit'])->middleware('auth')->name('storeRequestSakit');
+Route::get('/requestFormHalfDay', [HalfDayController::class, 'halfDay'])->middleware('auth')->name('requestFormHalfDay');
+Route::post('/storeRequestHalfDay', [HalfDayController::class, 'storeRequestHalfDay'])->middleware('auth')->name('storeRequestHalfDay');
+Route::get('/requestFormLeaveTask', [LeaveTaskController::class, 'leaveTask'])->middleware('auth')->name('requestFormLeaveTask');
+Route::post('/storeRequestLeaveTask', [LeaveTaskController::class, 'storeRequestLeaveTask'])->middleware('auth')->name('storeRequestLeaveTask');
+Route::get('/requestFormOutOfficeAssign', [OutOfficeAssignController::class, 'outOfficeAssign'])->middleware('auth')->name('requestFormOutOfficeAssign');
+Route::post('/storeRequestOutOfficeAssign', [OutOfficeAssignController::class, 'storeRequestOutOfficeAssign'])->middleware('auth')->name('storeRequestOutOfficeAssign');
 
 Route::middleware(['admin'])->group(function () {
     // Dashboard
