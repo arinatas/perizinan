@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\CutiController;
 use App\Http\Controllers\Admin\FormIzinController;
 use App\Http\Controllers\Admin\FormSakitController;
 use App\Http\Controllers\Admin\FormSetHariController;
+use App\Http\Controllers\Admin\FormMeninggalkanTugasController;
 // User
 use App\Http\Controllers\User\UserController;
 
@@ -93,7 +94,7 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/formsakit/reject-atasan/{id}', [FormSakitController::class, 'rejectAtasan'])->middleware('auth')->name('formsakit.reject-atasan'); // Reject Atasan
     Route::post('/formsakit/reject-sdm/{id}', [FormSakitController::class, 'rejectSdm'])->middleware('auth')->name('formsakit.reject-sdm'); // Reject SDM
 
-    // Form Sakit
+    // Form 1/2 Hari
     Route::get('/formsethari', [FormSetHariController::class, 'index'])->middleware('auth')->name('formsethari');
     Route::post('/formsethari/approve-atasan/{id}', [FormSetHariController::class, 'approveAtasan'])->middleware('auth')->name('formsethari.approve-atasan');// Approve Atasan
     Route::post('/formsethari/approve-sdm/{id}', [FormSetHariController::class, 'approveSdm'])->middleware('auth')->name('formsethari.approve-sdm'); // Approve SDM
@@ -101,6 +102,15 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/formsethari/unapprove-sdm/{id}', [FormSetHariController::class, 'unapproveSdm'])->middleware('auth')->name('formsethari.unapprove-sdm'); // Unapprove SDM
     Route::post('/formsethari/reject-atasan/{id}', [FormSetHariController::class, 'rejectAtasan'])->middleware('auth')->name('formsethari.reject-atasan'); // Reject Atasan
     Route::post('/formsethari/reject-sdm/{id}', [FormSetHariController::class, 'rejectSdm'])->middleware('auth')->name('formsethari.reject-sdm'); // Reject SDM
+
+    // Form Meninggalkan Tugas
+    Route::get('/formmeninggalkantugas', [FormMeninggalkanTugasController::class, 'index'])->middleware('auth')->name('formmeninggalkantugas');
+    Route::post('/formmeninggalkantugas/approve-atasan/{id}', [FormMeninggalkanTugasController::class, 'approveAtasan'])->middleware('auth')->name('formmeninggalkantugas.approve-atasan');// Approve Atasan
+    Route::post('/formmeninggalkantugas/approve-sdm/{id}', [FormMeninggalkanTugasController::class, 'approveSdm'])->middleware('auth')->name('formmeninggalkantugas.approve-sdm'); // Approve SDM
+    Route::post('/formmeninggalkantugas/unapprove-atasan/{id}', [FormMeninggalkanTugasController::class, 'unapproveAtasan'])->middleware('auth')->name('formmeninggalkantugas.unapprove-atasan'); // Unapprove Atasan
+    Route::post('/formmeninggalkantugas/unapprove-sdm/{id}', [FormMeninggalkanTugasController::class, 'unapproveSdm'])->middleware('auth')->name('formmeninggalkantugas.unapprove-sdm'); // Unapprove SDM
+    Route::post('/formmeninggalkantugas/reject-atasan/{id}', [FormMeninggalkanTugasController::class, 'rejectAtasan'])->middleware('auth')->name('formmeninggalkantugas.reject-atasan'); // Reject Atasan
+    Route::post('/formmeninggalkantugas/reject-sdm/{id}', [FormMeninggalkanTugasController::class, 'rejectSdm'])->middleware('auth')->name('formmeninggalkantugas.reject-sdm'); // Reject SDM
 
 });
 
