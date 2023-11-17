@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\FormMeninggalkanTugasController;
 use App\Http\Controllers\Admin\FormTgsKlrKantorController;
 use App\Http\Controllers\Admin\FormCutiController;
 use App\Http\Controllers\Admin\FormLemburController;
+use App\Http\Controllers\Admin\RekapanController;
 // User
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\User\IzinController;
@@ -156,6 +157,9 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/formlembur/unapprove-sdm/{id}', [FormLemburController::class, 'unapproveSdm'])->middleware('auth')->name('formlembur.unapprove-sdm'); // Unapprove SDM
     Route::post('/formlembur/reject-atasan/{id}', [FormLemburController::class, 'rejectAtasan'])->middleware('auth')->name('formlembur.reject-atasan'); // Reject Atasan
     Route::post('/formlembur/reject-sdm/{id}', [FormLemburController::class, 'rejectSdm'])->middleware('auth')->name('formlembur.reject-sdm'); // Reject SDM
+
+    // Laporan / Rekapan
+    Route::get('/rekapan', [RekapanController::class, 'index'])->middleware('auth')->name('rekapan');
 
 });
 
