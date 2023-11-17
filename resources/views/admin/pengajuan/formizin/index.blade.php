@@ -90,12 +90,12 @@
 
                                                                 <form method="post" action="{{ route('formizin.unapprove-atasan', $item->id) }}">
                                                                     @csrf
-                                                                    <button type="submit" class="btn btn-sm btn-danger btn-action mb-2 w-100" data-toggle="tooltip" title="Unapprove Atasan"><i class="fas fa-times"></i> Unapprove</button>
+                                                                    <button type="submit" class="btn btn-sm btn-warning btn-action mb-2 w-100" data-toggle="tooltip" title="Unapprove Atasan"><i class="fas fa-undo"></i> Unapprove</button>
                                                                 </form>
 
                                                                 <form method="post" action="{{ route('formizin.reject-atasan', $item->id) }}">
                                                                     @csrf
-                                                                    <button type="submit" class="btn btn-sm btn-warning btn-action w-100" data-toggle="tooltip" title="Reject Atasan"><i class="fas fa-times"></i> Reject</button>
+                                                                    <button type="submit" class="btn btn-sm btn-danger btn-action w-100" data-toggle="tooltip" title="Reject Atasan"><i class="fas fa-times"></i> Reject</button>
                                                                 </form>
                                                             </div>
                                                         </td>
@@ -109,12 +109,12 @@
 
                                                                 <form method="post" action="{{ route('formizin.unapprove-sdm', $item->id) }}">
                                                                     @csrf
-                                                                    <button type="submit" class="btn btn-sm btn-danger btn-action mb-2 w-100" data-toggle="tooltip" title="Unapprove SDM"><i class="fas fa-times"></i> Unapprove</button>
+                                                                    <button type="submit" class="btn btn-sm btn-warning btn-action mb-2 w-100" data-toggle="tooltip" title="Unapprove SDM"><i class="fas fa-undo"></i> Unapprove</button>
                                                                 </form>
 
                                                                 <form method="post" action="{{ route('formizin.reject-sdm', $item->id) }}">
                                                                     @csrf
-                                                                    <button type="submit" class="btn btn-sm btn-warning btn-action w-100" data-toggle="tooltip" title="Reject SDM"><i class="fas fa-times"></i> Reject</button>
+                                                                    <button type="submit" class="btn btn-sm btn-danger btn-action w-100" data-toggle="tooltip" title="Reject SDM"><i class="fas fa-times"></i> Reject</button>
                                                                 </form>
                                                             </div>
                                                         </td>
