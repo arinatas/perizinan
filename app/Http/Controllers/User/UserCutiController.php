@@ -58,20 +58,78 @@ class UserCutiController extends Controller
                 if($request->jumlah_cuti <= 3) {
                     // cek jika sisa cuti kurang dari jumlah cuti yang di ajukan
                     if($sisaCutiTahunIni >= $request->jumlah_cuti) {
-                        // lanjut disini dulu
-                        // insert cuti dan update sisa cuti disini
-                        $cuti = Cuti::where('id_user', auth()->user()->id)->first();
 
+                        // validasi input yang didapatkan dari request
+                        $validator = Validator::make($request->all(), [
+                            'id_user' => 'required',
+                            'id_devisi' => 'required',
+                            'approve_atasan' => 'required',
+                            'approve_sdm' => 'required',
+                            'nama' => 'required|string',
+                            'jabatan' => 'required|string',
+                            'tanggal_mulai' => 'required|date',
+                            'tanggal_selesai' => 'required|date',
+                            'jumlah_cuti' => 'required',
+                            'jenis_cuti' => 'required',
+                            'alamat' => 'required|string',
+                            'no_hp' => 'required|string|max:100',
+                            'bukti_pendukung' => 'required|file|max:2048|mimes:jpeg,png,pdf,jpg',
+                            'keperluan' => 'required|string|max:255',
+                        ]);
+
+                        // kalau ada error kembalikan error
+                        if ($validator->fails()) {
+                            return redirect()->back()->withErrors($validator)->withInput();
+                        }
+
+                        // Simpan data ke database
+                        // mulai try catch untuk menangkap error jika terjadi error pada saat penginputan database
                         try{
+                            DB::beginTransaction();
+
+                            // insert cuti dan update sisa cuti disini
+                            $cuti = Cuti::where('id_user', auth()->user()->id)->first();
+
                             $cuti->jumlah_cuti = $cuti->jumlah_cuti - $request->jumlah_cuti;
 
                             $cuti->save();
 
-                            dd($cuti);
+                            // cek jika ada file upload
+                            $fileName = null;
+                            if ($request->file('bukti_pendukung')) {
+                                $file = $request->file('bukti_pendukung');
+                                $fileName = Str::slug(Carbon::now()) . '-' . $file->getClientOriginalName();
+                                $file->move(public_path('uploads'), $fileName);
+                            }
 
-                        } catch(Exception $e) {
-                            dd($e);
+                            // insert data pada tabel t_jurnal
+                            $FormCuti = FormCuti::create([
+                                'id_user' => $request->id_user,
+                                'id_devisi' => $request->id_devisi,
+                                'nama' => $request->nama,
+                                'jabatan' => $request->jabatan,
+                                'tanggal_mulai' => $request->tanggal_mulai,
+                                'tanggal_selesai' => $request->tanggal_selesai,
+                                'jumlah_cuti' => $request->jumlah_cuti,
+                                'alamat' => $request->alamat,
+                                'no_hp' => $request->no_hp,
+                                'jenis_cuti' => $request->jenis_cuti,
+                                'keperluan' => $request->keperluan,
+                                'bukti_pendukung' => $fileName,
+                                'approve_atasan' => $request->approve_atasan,
+                                'approve_sdm' => $request->approve_sdm,
+                            ]);
+
+                            DB::commit();
+
+                            return redirect('/requestFormCuti')->with('insertSuccess', 'Request created successfully.');
+
+                        } catch (Exception $e) {
+                            DB::rollBack();
+                            // dd($e->getMessage());
+                            return redirect()->back()->with('insertFail', 'Failed to create request.');
                         }
+                       
                     } else {
                         return redirect()->back()->with('insertFail', 'Jumlah cuti yang di ajukan melebihi jatah cuti yang dimiliki.');
                     }

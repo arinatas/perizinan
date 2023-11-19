@@ -11,52 +11,14 @@
 			<div id="kt_content_container" class="container-xxl">
 				<!--begin::Card-->
 				<div class="card">
-					{{-- memanggil error dari backend validator --}}
-					@error('id_user')
-						<div class="alert alert-danger">{{ $message }}</div>
-					@enderror
-					@error('id_devisi')
-						<div class="alert alert-danger">{{ $message }}</div>
-					@enderror
-					@error('approve_atasan')
-						<div class="alert alert-danger">{{ $message }}</div>
-					@enderror
-					@error('approve_sdm')
-						<div class="alert alert-danger">{{ $message }}</div>
-					@enderror
-					@error('nama')
-						<div class="alert alert-danger">{{ $message }}</div>
-					@enderror
-					@error('jabatan')
-						<div class="alert alert-danger">{{ $message }}</div>
-					@enderror
-					@error('tanggal')
-						<div class="alert alert-danger">{{ $message }}</div>
-					@enderror
-					@error('jumlah_izin')
-						<div class="alert alert-danger">{{ $message }}</div>
-					@enderror
-					@error('no_hp')
-						<div class="alert alert-danger">{{ $message }}</div>
-					@enderror
-					@error('keperluan')
-						<div class="alert alert-danger">{{ $message }}</div>
-					@enderror
-					@error('bukti_pendukung')
-						<div class="alert alert-danger">{{ $message }}</div>
-					@enderror
-					@error('keperluan')
-						<div class="alert alert-danger">{{ $message }}</div>
-					@enderror
-					{{-- end error --}}
 					<!--begin::Card body-->
 					<div class="card-px text-center pt-10">
 						<!--begin::Title-->
 						<div class="d-flex flex-row justify-content-between">
 							<div>
 								<h1>Form {{ $title }}
-                                    (Sisa Cuti : @if ($sisaCutiTahunIni)
-                                    {{ $sisaCutiTahunIni }}
+                                    (@if ($sisaCutiTahunIni)
+                                    Sisa Cuti : {{ $sisaCutiTahunIni }}
                                     @else
                                     Belum Ada Cuti
                                     @endif)
@@ -65,6 +27,44 @@
 						</div>
 						<!--end::Title-->
 					</div>
+						{{-- memanggil error dari backend validator --}}
+							@error('id_user')
+							<div class="alert alert-danger">{{ $message }}</div>
+							@enderror
+							@error('id_devisi')
+								<div class="alert alert-danger">{{ $message }}</div>
+							@enderror
+							@error('approve_atasan')
+								<div class="alert alert-danger">{{ $message }}</div>
+							@enderror
+							@error('approve_sdm')
+								<div class="alert alert-danger">{{ $message }}</div>
+							@enderror
+							@error('nama')
+								<div class="alert alert-danger">{{ $message }}</div>
+							@enderror
+							@error('jabatan')
+								<div class="alert alert-danger">{{ $message }}</div>
+							@enderror
+							@error('tanggal')
+								<div class="alert alert-danger">{{ $message }}</div>
+							@enderror
+							@error('jumlah_izin')
+								<div class="alert alert-danger">{{ $message }}</div>
+							@enderror
+							@error('no_hp')
+								<div class="alert alert-danger">{{ $message }}</div>
+							@enderror
+							@error('keperluan')
+								<div class="alert alert-danger">{{ $message }}</div>
+							@enderror
+							@error('bukti_pendukung')
+								<div class="alert alert-danger">{{ $message }}</div>
+							@enderror
+							@error('keperluan')
+								<div class="alert alert-danger">{{ $message }}</div>
+							@enderror
+						{{-- end error --}}
 					<div class="card-body pb-10">
 						<!--Begin::Table-->
 						<form id="my-form" action="/storeRequestCuti" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
