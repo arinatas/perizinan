@@ -12,14 +12,23 @@ use Illuminate\Support\Facades\Hash;
 
 class FormCutiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $formcutis = FormCuti::with(['devisi', 'jenisCuti'])->get();
+        // Mendapatkan rentang tanggal dari request
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $formcutis = FormCuti::with(['devisi', 'jenisCuti'])
+            ->whereBetween('tanggal_mulai', [$startDate, $endDate])
+            ->get();
+
             return view('admin.pengajuan.formcuti.index', [
                 'title' => 'Pengajuan Cuti',
                 'section' => 'Pengajuan',
                 'active' => 'formcuti',
                 'formcutis' => $formcutis,
+                'startDate' => $startDate,
+                'endDate' => $endDate,
             ]);
     }
 

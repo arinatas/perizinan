@@ -11,14 +11,23 @@ use Illuminate\Support\Facades\Hash;
 
 class FormLemburController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $formlemburs = FormLembur::with('devisi')->get();
+        // Mendapatkan rentang tanggal dari request
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $formlemburs = FormLembur::with('devisi')
+            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->get();
+
             return view('admin.pengajuan.formlembur.index', [
                 'title' => 'Pengajuan Lembur',
                 'section' => 'Pengajuan',
                 'active' => 'formlembur',
                 'formlemburs' => $formlemburs,
+                'startDate' => $startDate,
+                'endDate' => $endDate,
             ]);
     }
 

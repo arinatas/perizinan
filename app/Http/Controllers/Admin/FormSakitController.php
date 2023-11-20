@@ -11,14 +11,23 @@ use Illuminate\Support\Facades\Hash;
 
 class FormSakitController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $formsakits = FormSakit::with('devisi')->get();
+        // Mendapatkan rentang tanggal dari request
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $formsakits = FormSakit::with('devisi')
+            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->get();
+
             return view('admin.pengajuan.formsakit.index', [
                 'title' => 'Pengajuan Izin Sakit',
                 'section' => 'Pengajuan',
                 'active' => 'formsakit',
                 'formsakits' => $formsakits,
+                'startDate' => $startDate,
+                'endDate' => $endDate,
             ]);
     }
 

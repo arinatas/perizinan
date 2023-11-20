@@ -11,14 +11,22 @@ use Illuminate\Support\Facades\Hash;
 
 class FormSetHariController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $formsetharis = FormSetHari::with('devisi')->get();
+        // Mendapatkan rentang tanggal dari request
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $formsetharis = FormSetHari::with('devisi')
+            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->get();
             return view('admin.pengajuan.formsethari.index', [
                 'title' => 'Pengajuan Izin Setengah Hari',
                 'section' => 'Pengajuan',
                 'active' => 'formsethari',
                 'formsetharis' => $formsetharis,
+                'startDate' => $startDate,
+                'endDate' => $endDate,
             ]);
     }
 
