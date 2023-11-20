@@ -88,11 +88,6 @@
                                                                     <button type="submit" class="btn btn-sm btn-success btn-action mb-2 w-100" data-toggle="tooltip" title="Approve Atasan"><i class="fas fa-check"></i> Approve</button>
                                                                 </form>
 
-                                                                <form method="post" action="{{ route('formcuti.unapprove-atasan', $item->id) }}">
-                                                                    @csrf
-                                                                    <button type="submit" class="btn btn-sm btn-warning btn-action mb-2 w-100" data-toggle="tooltip" title="Unapprove Atasan"><i class="fas fa-undo"></i> Unapprove</button>
-                                                                </form>
-
                                                                 <form method="post" action="{{ route('formcuti.reject-atasan', $item->id) }}">
                                                                     @csrf
                                                                     <button type="submit" class="btn btn-sm btn-danger btn-action w-100" data-toggle="tooltip" title="Reject Atasan"><i class="fas fa-times"></i> Reject</button>
@@ -107,15 +102,21 @@
                                                                     <button type="submit" class="btn btn-sm btn-success btn-action mb-2 w-100" data-toggle="tooltip" title="Approve SDM"><i class="fas fa-check"></i> Approve</button>
                                                                 </form>
 
-                                                                <form method="post" action="{{ route('formcuti.unapprove-sdm', $item->id) }}">
-                                                                    @csrf
-                                                                    <button type="submit" class="btn btn-sm btn-warning btn-action mb-2 w-100" data-toggle="tooltip" title="Unapprove SDM"><i class="fas fa-undo"></i> Unapprove</button>
-                                                                </form>
-
-                                                                <form method="post" action="{{ route('formcuti.reject-sdm', $item->id) }}">
-                                                                    @csrf
-                                                                    <button type="submit" class="btn btn-sm btn-danger btn-action w-100" data-toggle="tooltip" title="Reject SDM"><i class="fas fa-times"></i> Reject</button>
-                                                                </form>
+                                                                @if($item->approve_sdm != 2)
+                                                                    <form method="post" action="{{ route('formcuti.reject-sdm', $item->id) }}">
+                                                                        @csrf
+                                                                        <button type="submit" class="btn btn-sm btn-danger btn-action mb-2 w-100" data-toggle="tooltip" title="Reject SDM">
+                                                                            <i class="fas fa-times"></i> Reject
+                                                                        </button>
+                                                                    </form>
+                                                                @else
+                                                                    <form method="post" action="#}">
+                                                                        @csrf
+                                                                        <button type="submit" class="btn btn-sm btn-danger btn-action mb-2 w-100" data-toggle="tooltip" title="Reject SDM" disabled>
+                                                                            <i class="fas fa-times"></i> Reject
+                                                                        </button>
+                                                                    </form>
+                                                                @endif
                                                             </div>
                                                         </td>
                                                         <td>

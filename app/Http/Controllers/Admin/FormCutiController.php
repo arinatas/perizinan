@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Models\FormCuti;
+use App\Models\Cuti;
 use Illuminate\Support\Facades\Hash;
 
 class FormCutiController extends Controller
@@ -39,24 +40,6 @@ class FormCutiController extends Controller
 
         return redirect()->back()->with('success', 'Form approved by SDM.');
     }
-
-    public function unapproveAtasan($id)
-    {
-        $formCuti = FormCuti::findOrFail($id);
-        $formCuti->approve_atasan = 0; // Set to 0 for unapproval
-        $formCuti->save();
-    
-        return redirect()->back()->with('success', 'Form unapproved by Atasan.');
-    }
-    
-    public function unapproveSdm($id)
-    {
-        $formCuti = FormCuti::findOrFail($id);
-        $formCuti->approve_sdm = 0; // Set to 0 for unapproval
-        $formCuti->save();
-    
-        return redirect()->back()->with('success', 'Form unapproved by SDM.');
-    }
     
     public function rejectAtasan($id)
     {
@@ -70,9 +53,27 @@ class FormCutiController extends Controller
     public function rejectSdm($id)
     {
         $formCuti = FormCuti::findOrFail($id);
-        $formCuti->approve_sdm = 2; // Set to 2 for rejection
+
+        // Check if the request has already been rejected
+        if ($formCuti->approve_sdm == 2) {
+            return redirect()->back()->with('info', 'Form has already been rejected by SDM.');
+        }
+
+        // Set to 2 for rejection
+        $formCuti->approve_sdm = 2;
         $formCuti->save();
-    
+
+        // Update jumlah_cuti in the master_cuti table
+        $masterCuti = Cuti::where('id_user', $formCuti->id_user)
+            ->where('tahun', date('Y')) // Assuming you want to update for the current year
+            ->first();
+
+        if ($masterCuti) {
+            // Increase the jumlah_cuti by the rejected amount
+            $masterCuti->jumlah_cuti += $formCuti->jumlah_cuti;
+            $masterCuti->save();
+        }
+
         return redirect()->back()->with('success', 'Form rejected by SDM.');
-    }    
+    }   
 }
