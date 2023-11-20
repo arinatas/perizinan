@@ -20,8 +20,9 @@ class RekapanController extends Controller
 {
     public function index(Request $request)
     {
-        // Ambil semua User
-        $akuns = Akun::all();
+
+        // Ambil semua User dengan is_admin = 0
+        $akuns = Akun::where('is_admin', 0)->get();
 
         // Inisialisasi array untuk menyimpan jumlah per user
         $izinCounts = [];
