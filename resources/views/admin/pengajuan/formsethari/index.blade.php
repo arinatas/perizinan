@@ -22,6 +22,25 @@
                                             <!--end::Title-->
                                         </div>
                                         <!--end::Heading-->
+                                        <!-- Filter Form -->
+                                        <div class="card-px mt-10">
+                                            <form action="{{ route('formsethari') }}" method="GET">
+                                                <div class="row mb-3">
+                                                    <div class="col-md-3">
+                                                        <label for="start_date" class="form-label">Tanggal Mulai:</label>
+                                                        <input type="date" class="form-control" id="start_date" name="start_date" value="{{ $startDate }}">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <label for="end_date" class="form-label">Tanggal Selesai:</label>
+                                                        <input type="date" class="form-control" id="end_date" name="end_date" value="{{ $endDate }}">
+                                                    </div>
+                                                    <div class="col-md-3 mt-4">
+                                                        <button type="submit" class="btn btn-primary mt-4">Filter</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <!-- End Filter Form -->
                                         <!--begin::Table-->
                                         @if ($formsetharis )
                                         <div class="table-responsive my-10 mx-8">
@@ -260,6 +279,13 @@
                                         </div>
                                         @endif
                                         <!--end::Table-->
+                                        <!--begin::Notice-->
+                                        @if (!$startDate || !$endDate)
+                                            <div class="alert alert-warning mt-4">
+                                                Silahkan filter terlebih dahulu berdasarkan tanggal.
+                                            </div>
+                                        @endif
+                                        <!--end::Notice-->
                                     </div>
                                     <!--end::Card body-->
                                 </div>

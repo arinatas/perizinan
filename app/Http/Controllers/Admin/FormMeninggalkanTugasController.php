@@ -11,14 +11,22 @@ use Illuminate\Support\Facades\Hash;
 
 class FormMeninggalkanTugasController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $formmeninggalkantugass = FormMeninggalkanTugas::with('devisi')->get();
+        // Mendapatkan rentang tanggal dari request
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $formmeninggalkantugass = FormMeninggalkanTugas::with('devisi')
+            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->get();
             return view('admin.pengajuan.formmeninggalkantugas.index', [
                 'title' => 'Pengajuan Izin Meninggalkan Tugas',
                 'section' => 'Pengajuan',
                 'active' => 'formmeninggalkantugas',
                 'formmeninggalkantugass' => $formmeninggalkantugass,
+                'startDate' => $startDate,
+                'endDate' => $endDate,
             ]);
     }
 

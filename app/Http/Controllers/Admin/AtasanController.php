@@ -14,8 +14,8 @@ class AtasanController extends Controller
 {
     public function index()
     {
-        // Mendapatkan semua data user dari tabel users
-        $users = Akun::all();
+        // Mendapatkan semua data user dari tabel users dengan is_admin = 0
+        $users = Akun::where('is_admin', 0)->get();
 
         // Mendapatkan data atasan beserta data user yang terkait
         $atasans = Atasan::with('atasanUser')->get();
@@ -72,7 +72,7 @@ class AtasanController extends Controller
         if (!$atasan) {
             return redirect()->back()->with('dataNotFound', 'Data tidak ditemukan');
         }
-        $users = Akun::all();
+        $users = Akun::where('is_admin', 0)->get();
 
         return view('admin.master.atasan.edit', [
             'title' => 'Atasan',

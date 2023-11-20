@@ -20,8 +20,9 @@ class RekapanController extends Controller
 {
     public function index(Request $request)
     {
-        // Ambil semua User
-        $akuns = Akun::all();
+
+        // Ambil semua User dengan is_admin = 0
+        $akuns = Akun::where('is_admin', 0)->get();
 
         // Inisialisasi array untuk menyimpan jumlah per user
         $izinCounts = [];
@@ -31,6 +32,12 @@ class RekapanController extends Controller
         $izinTgsKlrKantorCounts = [];
         $izinCutiCounts = [];
         $izinLemburCounts = [];
+
+        // Inisiasi Array untuk menyimpan Sum jumlah hari atau jam TOTAL
+        $jumlahIzinCounts = []; 
+        $jumlahSakitCounts = [];
+        $jumlahCutiCounts = [];
+        $jumlahLemburCounts = [];
 
         // Mendapatkan rentang tanggal dari request
         $startDate = $request->input('start_date');
@@ -79,6 +86,35 @@ class RekapanController extends Controller
                 ->whereBetween('tanggal', [$startDate, $endDate])
                 ->count();
             $izinLemburCounts[$akun->id] = $izinLemburCount;
+
+            // Ambil Total jumlah izin berdasarkan id_user dari tabel izin
+            $jumlahIzinCount = FormIzin::where('id_user', $akun->id)
+                ->whereBetween('tanggal', [$startDate, $endDate])
+                ->sum('jumlah_izin');
+            $jumlahIzinCounts[$akun->id] = $jumlahIzinCount;
+
+            // Ambil Total jumlah sakit berdasarkan id_user dari tabel sakit
+            $jumlahSakitCount = FormSakit::where('id_user', $akun->id)
+                ->whereBetween('tanggal', [$startDate, $endDate])
+                ->sum('jumlah_izin');
+            $jumlahSakitCounts[$akun->id] = $jumlahSakitCount;
+
+            // Ambil Total Cuti berdasarkan id_user dari tabel Cuti
+            $jumlahCutiCount = FormCuti::where('id_user', $akun->id)
+                ->whereBetween('tanggal_mulai', [$startDate, $endDate])
+                ->sum('jumlah_cuti');
+            $jumlahCutiCounts[$akun->id] = $jumlahCutiCount;
+
+            // Ambil Total Durasi Lembur berdasarkan id_user dari tabel Lembur
+            $totalLemburDurationInSeconds = FormLembur::where('id_user', $akun->id)
+                ->whereBetween('tanggal', [$startDate, $endDate])
+                ->selectRaw('SUM(TIME_TO_SEC(durasi_lembur)) as total_duration')
+                ->value('total_duration');
+
+            $jumlahLemburCounts[$akun->id] = $totalLemburDurationInSeconds;
+            // Convert totalLemburDurationInSeconds to time format (HH:MM:SS)
+            $totalLemburDuration = gmdate('H:i:s', $totalLemburDurationInSeconds);
+            $totalLemburDurations[$akun->id] = $totalLemburDuration;
         }
 
         return view('admin.rekapan.index', [
@@ -93,6 +129,72 @@ class RekapanController extends Controller
             'izinTgsKlrKantorCounts' => $izinTgsKlrKantorCounts,
             'izinCutiCounts' => $izinCutiCounts,
             'izinLemburCounts' => $izinLemburCounts,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'jumlahIzinCounts' => $jumlahIzinCounts,
+            'jumlahSakitCounts' => $jumlahSakitCounts,
+            'jumlahCutiCounts' => $jumlahCutiCounts,
+            'totalLemburDurations' => $totalLemburDurations,
+        ]);
+    }
+
+    public function detail($id)
+    {
+        // Find the user based on the provided ID
+        $akun = Akun::with(['devisi', 'devisi.atasanUser'])->findOrFail($id);
+
+        // Use the same start and end dates from the index
+        $startDate = request()->input('start_date');
+        $endDate = request()->input('end_date');
+
+        // Get izin details for the user
+        $izinDetails = FormIzin::where('id_user', $id)
+            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->get();
+
+        // Get izin sakit details for the user
+        $sakitDetails = FormSakit::where('id_user', $id)
+            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->get();
+
+        // Get izin 1/2 hari details for the user
+        $sethariDetails = FormSetHari::where('id_user', $id)
+        ->whereBetween('tanggal', [$startDate, $endDate])
+        ->get();
+
+        // Get izin Meninggalkan Tugas details for the user
+        $meninggalkantugasDetails = FormMeninggalkanTugas::where('id_user', $id)
+        ->whereBetween('tanggal', [$startDate, $endDate])
+        ->get();
+
+        // Get izin Tugas Keluar Kantor details for the user
+        $tgsklrkantorDetails = FormTgsKlrKantor::where('id_user', $id)
+        ->whereBetween('tanggal', [$startDate, $endDate])
+        ->get();
+
+        // Get Cuti details for the user
+        $cutiDetails = FormCuti::with('jenisCuti')
+            ->where('id_user', $id)
+            ->whereBetween('tanggal_mulai', [$startDate, $endDate])
+            ->get();
+
+        // Get Lembur details for the user
+        $lemburDetails = Formlembur::where('id_user', $id)
+        ->whereBetween('tanggal', [$startDate, $endDate])
+        ->get();
+
+        return view('admin.rekapan.detail', [
+            'title' => 'Detail Rekapan',
+            'section' => 'Laporan',
+            'active' => 'rekapan',
+            'akun' => $akun,
+            'izinDetails' => $izinDetails,
+            'sakitDetails' => $sakitDetails,
+            'sethariDetails' => $sethariDetails,
+            'meninggalkantugasDetails' => $meninggalkantugasDetails,
+            'tgsklrkantorDetails' => $tgsklrkantorDetails,
+            'cutiDetails' => $cutiDetails,
+            'lemburDetails' => $lemburDetails,
             'startDate' => $startDate,
             'endDate' => $endDate,
         ]);

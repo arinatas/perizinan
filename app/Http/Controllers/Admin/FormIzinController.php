@@ -11,14 +11,23 @@ use Illuminate\Support\Facades\Hash;
 
 class FormIzinController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $formizins = FormIzin::with('devisi')->get();
+        // Mendapatkan rentang tanggal dari request
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $formizins = FormIzin::with('devisi')
+            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->get();
+            
             return view('admin.pengajuan.formizin.index', [
                 'title' => 'Pengajuan Izin',
                 'section' => 'Pengajuan',
                 'active' => 'formizin',
                 'formizins' => $formizins,
+                'startDate' => $startDate,
+                'endDate' => $endDate,
             ]);
     }
 

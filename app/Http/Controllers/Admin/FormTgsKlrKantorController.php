@@ -11,14 +11,23 @@ use Illuminate\Support\Facades\Hash;
 
 class FormTgsKlrKantorController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $formtgsklrkantors = FormTgsKlrKantor::with('devisi')->get();
+        // Mendapatkan rentang tanggal dari request
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $formtgsklrkantors = FormTgsKlrKantor::with('devisi')
+            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->get();
+
             return view('admin.pengajuan.form_tgs_klr_kantor.index', [
                 'title' => 'Pengajuan Izin Tugas Keluar Kantor',
                 'section' => 'Pengajuan',
                 'active' => 'formtgsklrkantor',
                 'formtgsklrkantors' => $formtgsklrkantors,
+                'startDate' => $startDate,
+                'endDate' => $endDate,
             ]);
     }
 

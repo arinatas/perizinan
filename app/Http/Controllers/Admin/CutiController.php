@@ -14,8 +14,11 @@ class CutiController extends Controller
 {
     public function index()
     {
-        $cutis = Cuti::with('user')->get();
-        $users = Akun::all(); // Fetch all users
+        $cutis = Cuti::whereHas('user', function ($query) {
+            $query->where('is_admin', 0);
+        })->with('user')->get();
+        // Ambil semua User dengan is_admin = 0 untuk tambah master cuti user baru
+        $users = Akun::where('is_admin', 0)->get();
         return view('admin.master.cuti.index', [
             'title' => 'Cuti',
             'section' => 'Master',
@@ -81,7 +84,7 @@ class CutiController extends Controller
             return redirect()->back()->with('dataNotFound', 'Data tidak ditemukan');
         }
 
-        $users = Akun::all(); // Fetch all users
+        $users = Akun::where('is_admin', 0)->get();
 
         return view('admin.master.cuti.edit', [
             'title' => 'Cuti',
