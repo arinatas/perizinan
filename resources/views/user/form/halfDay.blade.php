@@ -112,8 +112,8 @@
 									<!--end::Label-->
                                     <select class="form-select form-select-solid" required data-control="select2" data-hide-search="true" data-placeholder="Pilih waktu" name="waktu">
 										<option value="">Pilih Waktu</option>
-										<option value="Awal">Awal</option>
-										<option value="Akhir">Akhir</option>
+										<option value="09:00 - 13:00">Awal</option>
+										<option value="13:00 - 17:00">Akhir</option>
 									</select>
 								</div>
 								<!--end::Input group-->

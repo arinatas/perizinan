@@ -52,6 +52,7 @@ Route::patch('password', [ChangePasswordController::class, 'update'])->name('pas
 
 // user
 Route::get('/userDashboard', [UserController::class, 'index'])->middleware('auth')->name('userDashboard');
+Route::get('/rekapanAtasan', [UserController::class, 'rekapanAtasan'])->middleware('auth')->name('rekapanAtasan');
 Route::get('/requestFormIzin', [IzinController::class, 'izin'])->middleware('auth')->name('requestFormIzin');
 Route::post('/storeRequestIzin', [IzinController::class, 'storeRequestIzin'])->middleware('auth')->name('storeRequestIzin');
 Route::get('/requestFormSakit', [SakitController::class, 'sakit'])->middleware('auth')->name('requestFormSakit');
