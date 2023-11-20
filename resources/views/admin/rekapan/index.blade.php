@@ -78,8 +78,8 @@
                                                 <td>{{ $izinCutiCounts[$item->id] ?? 0 }}</td>
                                                 <td>{{ $izinLemburCounts[$item->id] ?? 0 }}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-sm btn-primary btn-action" data-toggle="tooltip" title="Edit">
-                                                        <i class="fas fa-eye"></i>Detail
+                                                    <a href="{{ route('rekapan.detail', ['id' => $item->id, 'start_date' => $startDate, 'end_date' => $endDate]) }}" class="btn btn-sm btn-primary btn-action" data-toggle="tooltip" title="Detail">
+                                                        <i class="fas fa-eye"></i> Detail
                                                     </a>
                                                 </td>
                                             </tr>

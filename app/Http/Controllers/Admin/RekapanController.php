@@ -97,4 +97,66 @@ class RekapanController extends Controller
             'endDate' => $endDate,
         ]);
     }
+
+    public function detail($id)
+    {
+        // Find the user based on the provided ID
+        $akun = Akun::with(['devisi', 'devisi.atasanUser'])->findOrFail($id);
+
+        // Use the same start and end dates from the index
+        $startDate = request()->input('start_date');
+        $endDate = request()->input('end_date');
+
+        // Get izin details for the user
+        $izinDetails = FormIzin::where('id_user', $id)
+            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->get();
+
+        // Get izin sakit details for the user
+        $sakitDetails = FormSakit::where('id_user', $id)
+            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->get();
+
+        // Get izin 1/2 hari details for the user
+        $sethariDetails = FormSetHari::where('id_user', $id)
+        ->whereBetween('tanggal', [$startDate, $endDate])
+        ->get();
+
+        // Get izin Meninggalkan Tugas details for the user
+        $meninggalkantugasDetails = FormMeninggalkanTugas::where('id_user', $id)
+        ->whereBetween('tanggal', [$startDate, $endDate])
+        ->get();
+
+        // Get izin Tugas Keluar Kantor details for the user
+        $tgsklrkantorDetails = FormTgsKlrKantor::where('id_user', $id)
+        ->whereBetween('tanggal', [$startDate, $endDate])
+        ->get();
+
+        // Get Cuti details for the user
+        $cutiDetails = FormCuti::with('jenisCuti')
+            ->where('id_user', $id)
+            ->whereBetween('tanggal_mulai', [$startDate, $endDate])
+            ->get();
+
+        // Get Lembur details for the user
+        $lemburDetails = Formlembur::where('id_user', $id)
+        ->whereBetween('tanggal', [$startDate, $endDate])
+        ->get();
+
+        return view('admin.rekapan.detail', [
+            'title' => 'Detail Rekapan',
+            'section' => 'Laporan',
+            'active' => 'rekapan',
+            'akun' => $akun,
+            'izinDetails' => $izinDetails,
+            'sakitDetails' => $sakitDetails,
+            'sethariDetails' => $sethariDetails,
+            'meninggalkantugasDetails' => $meninggalkantugasDetails,
+            'tgsklrkantorDetails' => $tgsklrkantorDetails,
+            'cutiDetails' => $cutiDetails,
+            'lemburDetails' => $lemburDetails,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+        ]);
+    }
 }

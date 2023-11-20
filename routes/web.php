@@ -160,6 +160,7 @@ Route::middleware(['admin'])->group(function () {
 
     // Laporan / Rekapan
     Route::get('/rekapan', [RekapanController::class, 'index'])->middleware('auth')->name('rekapan');
+    Route::get('/rekapan/detail/{id}', [RekapanController::class, 'detail'])->middleware('auth')->name('rekapan.detail');
 
 });
 
