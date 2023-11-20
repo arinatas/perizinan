@@ -32,6 +32,12 @@ class RekapanController extends Controller
         $izinCutiCounts = [];
         $izinLemburCounts = [];
 
+        // Inisiasi Array untuk menyimpan Sum jumlah hari atau jam TOTAL
+        $jumlahIzinCounts = []; 
+        $jumlahSakitCounts = [];
+        $jumlahCutiCounts = [];
+        $jumlahLemburCounts = [];
+
         // Mendapatkan rentang tanggal dari request
         $startDate = $request->input('start_date');
         $endDate = $request->input('end_date');
@@ -79,6 +85,35 @@ class RekapanController extends Controller
                 ->whereBetween('tanggal', [$startDate, $endDate])
                 ->count();
             $izinLemburCounts[$akun->id] = $izinLemburCount;
+
+            // Ambil Total jumlah izin berdasarkan id_user dari tabel izin
+            $jumlahIzinCount = FormIzin::where('id_user', $akun->id)
+                ->whereBetween('tanggal', [$startDate, $endDate])
+                ->sum('jumlah_izin');
+            $jumlahIzinCounts[$akun->id] = $jumlahIzinCount;
+
+            // Ambil Total jumlah sakit berdasarkan id_user dari tabel sakit
+            $jumlahSakitCount = FormSakit::where('id_user', $akun->id)
+                ->whereBetween('tanggal', [$startDate, $endDate])
+                ->sum('jumlah_izin');
+            $jumlahSakitCounts[$akun->id] = $jumlahSakitCount;
+
+            // Ambil Total Cuti berdasarkan id_user dari tabel Cuti
+            $jumlahCutiCount = FormCuti::where('id_user', $akun->id)
+                ->whereBetween('tanggal_mulai', [$startDate, $endDate])
+                ->sum('jumlah_cuti');
+            $jumlahCutiCounts[$akun->id] = $jumlahCutiCount;
+
+            // Ambil Total Durasi Lembur berdasarkan id_user dari tabel Lembur
+            $totalLemburDurationInSeconds = FormLembur::where('id_user', $akun->id)
+                ->whereBetween('tanggal', [$startDate, $endDate])
+                ->selectRaw('SUM(TIME_TO_SEC(durasi_lembur)) as total_duration')
+                ->value('total_duration');
+
+            $jumlahLemburCounts[$akun->id] = $totalLemburDurationInSeconds;
+            // Convert totalLemburDurationInSeconds to time format (HH:MM:SS)
+            $totalLemburDuration = gmdate('H:i:s', $totalLemburDurationInSeconds);
+            $totalLemburDurations[$akun->id] = $totalLemburDuration;
         }
 
         return view('admin.rekapan.index', [
@@ -95,6 +130,10 @@ class RekapanController extends Controller
             'izinLemburCounts' => $izinLemburCounts,
             'startDate' => $startDate,
             'endDate' => $endDate,
+            'jumlahIzinCounts' => $jumlahIzinCounts,
+            'jumlahSakitCounts' => $jumlahSakitCounts,
+            'jumlahCutiCounts' => $jumlahCutiCounts,
+            'totalLemburDurations' => $totalLemburDurations,
         ]);
     }
 

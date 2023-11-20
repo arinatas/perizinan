@@ -237,7 +237,7 @@
                                                         <tr>
                                                             <td>{{ $index + 1 }}</td>
                                                             <td>{{ $izin->tanggal }}</td>
-                                                            <td>{{ \Carbon\Carbon::parse($izin->waktu)->format('H:i') }}</td>
+                                                            <td>{{ $izin->waktu }}</td>
                                                             <td>{{ $izin->no_hp }}</td>
                                                             <td>{{ $izin->keperluan }}</td>
                                                             <td>
@@ -300,7 +300,7 @@
                                                         <tr>
                                                             <td>{{ $index + 1 }}</td>
                                                             <td>{{ $izin->tanggal }}</td>
-                                                            <td>{{ \Carbon\Carbon::parse($izin->waktu)->format('H:i') }}</td>
+                                                            <td>{{ $izin->waktu }}</td>
                                                             <td>{{ $izin->no_hp }}</td>
                                                             <td>{{ $izin->keperluan }}</td>
                                                             <td>
@@ -330,7 +330,7 @@
                                                 </tbody>
                                             </table>
                                         @else
-                                            <p>Tidak ada Pengajuan Izin 1/2 Hari untuk periode ini.</p>
+                                            <p>Tidak ada Pengajuan Izin Meninggalkan Tugas untuk periode ini.</p>
                                         @endif
                                     </div>
                                 </div>
@@ -409,7 +409,7 @@
                                                 </tbody>
                                             </table>
                                         @else
-                                            <p>Tidak ada Pengajuan Izin Sakit untuk periode ini.</p>
+                                            <p>Tidak ada Pengajuan Izin Tugas Keluar Kantor untuk periode ini.</p>
                                         @endif
                                     </div>
                                 </div>
@@ -492,7 +492,7 @@
                                                 </tbody>
                                             </table>
                                         @else
-                                            <p>Tidak ada Pengajuan Izin Sakit untuk periode ini.</p>
+                                            <p>Tidak ada Pengajuan Izin Cuti untuk periode ini.</p>
                                         @endif
                                     </div>
                                 </div>
@@ -571,7 +571,7 @@
                                                 </tbody>
                                             </table>
                                         @else
-                                            <p>Tidak ada Pengajuan Izin Sakit untuk periode ini.</p>
+                                            <p>Tidak ada Pengajuan Lembur untuk periode ini.</p>
                                         @endif
                                     </div>
                                 </div>

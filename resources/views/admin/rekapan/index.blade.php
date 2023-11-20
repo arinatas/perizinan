@@ -70,13 +70,55 @@
                                                 <td>{{ $no }}</td>
                                                 <!-- Add other table cells as needed -->
                                                 <td>{{ $item->nama }}</td>
-                                                <td>{{ $izinCounts[$item->id] ?? 0 }}</td>
-                                                <td>{{ $izinSakitCounts[$item->id] ?? 0 }}</td>
-                                                <td>{{ $izinSetengahHariCounts[$item->id] ?? 0 }}</td>
-                                                <td>{{ $izinMeninggalkanTugasCounts[$item->id] ?? 0 }}</td>
-                                                <td>{{ $izinTgsKlrKantorCounts[$item->id] ?? 0 }}</td>
-                                                <td>{{ $izinCutiCounts[$item->id] ?? 0 }}</td>
-                                                <td>{{ $izinLemburCounts[$item->id] ?? 0 }}</td>
+                                                <td>
+                                                    @if($izinCounts[$item->id] ?? 0 > 0)
+                                                        {{ $izinCounts[$item->id] }} X ({{ $jumlahIzinCounts[$item->id] ?? 0 }} Hari)
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if($izinSakitCounts[$item->id] ?? 0 > 0)
+                                                        {{ $izinSakitCounts[$item->id] }} X ({{ $jumlahSakitCounts[$item->id] ?? 0 }} Hari)
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if($izinSetengahHariCounts[$item->id] ?? 0 > 0)
+                                                        {{ $izinSetengahHariCounts[$item->id] ?? 0 }} Kali
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if($izinMeninggalkanTugasCounts[$item->id] ?? 0 > 0)
+                                                        {{ $izinMeninggalkanTugasCounts[$item->id] ?? 0 }} Kali
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if($izinTgsKlrKantorCounts[$item->id] ?? 0 > 0)
+                                                        {{ $izinTgsKlrKantorCounts[$item->id] ?? 0 }} Kali
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if($izinCutiCounts[$item->id] ?? 0 > 0)
+                                                        {{ $izinCutiCounts[$item->id] }} X ({{ $jumlahCutiCounts[$item->id] ?? 0 }} Hari)
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if(($izinLemburCounts[$item->id] ?? 0) > 0)
+                                                        {{ $izinLemburCounts[$item->id] }} X ({{ \Carbon\Carbon::parse($totalLemburDurations[$item->id] ?? 0)->format('H:i') }})
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     <a href="{{ route('rekapan.detail', ['id' => $item->id, 'start_date' => $startDate, 'end_date' => $endDate]) }}" class="btn btn-sm btn-primary btn-action" data-toggle="tooltip" title="Detail">
                                                         <i class="fas fa-eye"></i> Detail
