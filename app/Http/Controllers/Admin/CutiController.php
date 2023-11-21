@@ -12,19 +12,33 @@ use Illuminate\Support\Facades\Hash;
 
 class CutiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $year = $request->input('year');
+
         $cutis = Cuti::whereHas('user', function ($query) {
             $query->where('is_admin', 0);
-        })->with('user')->get();
+        })->with('user');
+
+        if ($year) {
+            $cutis->where('tahun', $year);
+        }
+    
+        $cutis = $cutis->get();
+    
         // Ambil semua User dengan is_admin = 0 untuk tambah master cuti user baru
         $users = Akun::where('is_admin', 0)->get();
+
+        // Ambil tahun unique di tabel cuti untuk pilihan di filter tahun
+        $uniqueYears = Cuti::select('tahun')->distinct()->pluck('tahun');
+
         return view('admin.master.cuti.index', [
             'title' => 'Cuti',
             'section' => 'Master',
             'active' => 'cuti',
             'cutis' => $cutis,
             'users' => $users,
+            'uniqueYears' => $uniqueYears,
         ]);
     }
 
