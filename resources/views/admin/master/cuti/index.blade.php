@@ -84,8 +84,9 @@
                                 </div>
                                 <!--end::Wrapper-->
                             </div>
-                            <!--end::Notice-->
                         </div>
+                        <!--end::Notice-->
+                        
                         @elseif ($cutis->count() > 0)
                         <div class="table-responsive my-10 mx-8">
                             <table class="table table-striped gy-7 gs-7">
