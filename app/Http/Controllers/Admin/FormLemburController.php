@@ -19,6 +19,7 @@ class FormLemburController extends Controller
 
         $formlemburs = FormLembur::with('devisi')
             ->whereBetween('tanggal', [$startDate, $endDate])
+            ->orderBy('id', 'desc')
             ->get();
 
             return view('admin.pengajuan.formlembur.index', [

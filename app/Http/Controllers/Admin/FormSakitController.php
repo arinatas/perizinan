@@ -19,6 +19,7 @@ class FormSakitController extends Controller
 
         $formsakits = FormSakit::with('devisi')
             ->whereBetween('tanggal', [$startDate, $endDate])
+            ->orderBy('id', 'desc')
             ->get();
 
             return view('admin.pengajuan.formsakit.index', [

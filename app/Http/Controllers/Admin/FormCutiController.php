@@ -20,6 +20,7 @@ class FormCutiController extends Controller
 
         $formcutis = FormCuti::with(['devisi', 'jenisCuti'])
             ->whereBetween('tanggal_mulai', [$startDate, $endDate])
+            ->orderBy('id', 'desc')
             ->get();
 
             return view('admin.pengajuan.formcuti.index', [

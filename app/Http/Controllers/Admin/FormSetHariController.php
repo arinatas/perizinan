@@ -19,6 +19,7 @@ class FormSetHariController extends Controller
 
         $formsetharis = FormSetHari::with('devisi')
             ->whereBetween('tanggal', [$startDate, $endDate])
+            ->orderBy('id', 'desc')
             ->get();
             return view('admin.pengajuan.formsethari.index', [
                 'title' => 'Pengajuan Izin Setengah Hari',

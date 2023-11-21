@@ -19,6 +19,7 @@ class FormTgsKlrKantorController extends Controller
 
         $formtgsklrkantors = FormTgsKlrKantor::with('devisi')
             ->whereBetween('tanggal', [$startDate, $endDate])
+            ->orderBy('id', 'desc')
             ->get();
 
             return view('admin.pengajuan.form_tgs_klr_kantor.index', [
