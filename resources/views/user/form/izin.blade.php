@@ -262,11 +262,11 @@
 
                                                                     @if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif']))
                                                                         {{-- Display image --}}
-                                                                        <img src="{{ asset('/uploads/' . $item->bukti_pendukung) }}" alt="Bukti Pendukung" class="img-fluid mx-auto d-block mt-10">
+                                                                        <img src="/{{ asset('uploads/' . $item->bukti_pendukung) }}" alt="Bukti Pendukung" class="img-fluid mx-auto d-block mt-10">
 
                                                                     @elseif (in_array(strtolower($extension), ['pdf']))
                                                                         {{-- Display PDF --}}
-                                                                        <a href="{{ asset('/uploads/' . $item->bukti_pendukung) }}" target="_blank">View PDF</a>
+                                                                        <a href="/{{ asset('uploads/' . $item->bukti_pendukung) }}" target="_blank">View PDF</a>
                                                                     @else
                                                                         {{-- Handle other file types --}}
                                                                         <p>File type not supported</p>
@@ -288,7 +288,6 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                            {{-- <img src="uploads\{{ $jurnal->file_bukti }}" class="img-fluid mx-auto d-block mt-10" alt="..."> --}}
                         </div>
 						<!--end::Table-->
 					</div>
