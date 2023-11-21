@@ -19,6 +19,7 @@ class FormIzinController extends Controller
 
         $formizins = FormIzin::with('devisi')
             ->whereBetween('tanggal', [$startDate, $endDate])
+            ->orderBy('id', 'desc')
             ->get();
             
             return view('admin.pengajuan.formizin.index', [

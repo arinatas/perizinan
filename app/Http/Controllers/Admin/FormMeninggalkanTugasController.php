@@ -19,6 +19,7 @@ class FormMeninggalkanTugasController extends Controller
 
         $formmeninggalkantugass = FormMeninggalkanTugas::with('devisi')
             ->whereBetween('tanggal', [$startDate, $endDate])
+            ->orderBy('id', 'desc')
             ->get();
             return view('admin.pengajuan.formmeninggalkantugas.index', [
                 'title' => 'Pengajuan Izin Meninggalkan Tugas',
