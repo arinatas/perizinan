@@ -24,7 +24,7 @@ class FormLemburController extends Controller
             return view('admin.pengajuan.formlembur.index', [
                 'title' => 'Pengajuan Lembur',
                 'section' => 'Pengajuan',
-                'active' => 'formlembur',
+                'active' => 'Pengajuan Lembur',
                 'formlemburs' => $formlemburs,
                 'startDate' => $startDate,
                 'endDate' => $endDate,

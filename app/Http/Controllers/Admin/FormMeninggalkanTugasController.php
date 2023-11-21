@@ -23,7 +23,7 @@ class FormMeninggalkanTugasController extends Controller
             return view('admin.pengajuan.formmeninggalkantugas.index', [
                 'title' => 'Pengajuan Izin Meninggalkan Tugas',
                 'section' => 'Pengajuan',
-                'active' => 'formmeninggalkantugas',
+                'active' => 'Pengajuan Izin Meninggalkan Tugas',
                 'formmeninggalkantugass' => $formmeninggalkantugass,
                 'startDate' => $startDate,
                 'endDate' => $endDate,

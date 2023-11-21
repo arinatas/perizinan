@@ -24,7 +24,7 @@ class FormTgsKlrKantorController extends Controller
             return view('admin.pengajuan.form_tgs_klr_kantor.index', [
                 'title' => 'Pengajuan Izin Tugas Keluar Kantor',
                 'section' => 'Pengajuan',
-                'active' => 'formtgsklrkantor',
+                'active' => 'Pengajuan Izin Tugas Keluar Kantor',
                 'formtgsklrkantors' => $formtgsklrkantors,
                 'startDate' => $startDate,
                 'endDate' => $endDate,

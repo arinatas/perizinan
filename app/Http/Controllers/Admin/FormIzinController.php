@@ -24,7 +24,7 @@ class FormIzinController extends Controller
             return view('admin.pengajuan.formizin.index', [
                 'title' => 'Pengajuan Izin',
                 'section' => 'Pengajuan',
-                'active' => 'formizin',
+                'active' => 'Pengajuan Izin',
                 'formizins' => $formizins,
                 'startDate' => $startDate,
                 'endDate' => $endDate,

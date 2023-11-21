@@ -24,7 +24,7 @@ class FormSakitController extends Controller
             return view('admin.pengajuan.formsakit.index', [
                 'title' => 'Pengajuan Izin Sakit',
                 'section' => 'Pengajuan',
-                'active' => 'formsakit',
+                'active' => 'Pengajuan Izin Sakit',
                 'formsakits' => $formsakits,
                 'startDate' => $startDate,
                 'endDate' => $endDate,
