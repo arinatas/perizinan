@@ -33,7 +33,7 @@
                     </div>
                 </div>
                 <div class="menu-item {{ ($active === "dashboard") ? 'here show' : '' }}">
-                    <a class="menu-link" href="{{ url('dashboard') }}">
+                    <a class="menu-link" href="{{ url('adminDashboard') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/general/gen025.svg-->
                             <span class="svg-icon svg-icon-2">
@@ -55,7 +55,7 @@
                         <span class="menu-section text-muted text-uppercase fs-8 ls-1">Pengajuan</span>
                     </div>
                 </div>
-                <div class="menu-item {{ ($active === "formizin") ? 'here show' : '' }}">
+                <div class="menu-item {{ ($active === "Pengajuan Izin") ? 'here show' : '' }}">
                     <a class="menu-link" href="{{ url('formizin') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
@@ -71,7 +71,7 @@
                     </a>
                 </div>
 
-                <div class="menu-item {{ ($active === "formsakit") ? 'here show' : '' }}">
+                <div class="menu-item {{ ($active === "Pengajuan Izin Sakit") ? 'here show' : '' }}">
                     <a class="menu-link" href="{{ url('formsakit') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
@@ -86,7 +86,7 @@
                         <span class="menu-title">Form Sakit</span>
                     </a>
                 </div>
-                <div class="menu-item {{ ($active === "formsethari") ? 'here show' : '' }}">
+                <div class="menu-item {{ ($active === "Pengajuan Izin Setengah Hari") ? 'here show' : '' }}">
                     <a class="menu-link" href="{{ url('formsethari') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
@@ -101,7 +101,7 @@
                         <span class="menu-title">Form Izin 1/2 Hari</span>
                     </a>
                 </div>
-                <div class="menu-item {{ ($active === "formmeninggalkantugas") ? 'here show' : '' }}">
+                <div class="menu-item {{ ($active === "Pengajuan Izin Meninggalkan Tugas") ? 'here show' : '' }}">
                     <a class="menu-link" href="{{ url('formmeninggalkantugas') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
@@ -116,7 +116,7 @@
                         <span class="menu-title">Form Meninggalkan Tugas</span>
                     </a>
                 </div>
-                <div class="menu-item {{ ($active === "formtgsklrkantor") ? 'here show' : '' }}">
+                <div class="menu-item {{ ($active === "Pengajuan Izin Tugas Keluar Kantor") ? 'here show' : '' }}">
                     <a class="menu-link" href="{{ url('formtgsklrkantor') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
@@ -131,7 +131,7 @@
                         <span class="menu-title">Form Tugas Keluar Kantor</span>
                     </a>
                 </div>
-                <div class="menu-item {{ ($active === "formcuti") ? 'here show' : '' }}">
+                <div class="menu-item {{ ($active === "Pengajuan Cuti") ? 'here show' : '' }}">
                     <a class="menu-link" href="{{ url('formcuti') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->
@@ -146,7 +146,7 @@
                         <span class="menu-title">Form Cuti</span>
                     </a>
                 </div>
-                <div class="menu-item {{ ($active === "formlembur") ? 'here show' : '' }}">
+                <div class="menu-item {{ ($active === "Pengajuan Lembur") ? 'here show' : '' }}">
                     <a class="menu-link" href="{{ url('formlembur') }}">
                         <span class="menu-icon">
                             <!--begin::Svg Icon | path: icons/duotune/art/art002.svg-->

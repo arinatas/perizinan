@@ -25,7 +25,7 @@ class FormCutiController extends Controller
             return view('admin.pengajuan.formcuti.index', [
                 'title' => 'Pengajuan Cuti',
                 'section' => 'Pengajuan',
-                'active' => 'formcuti',
+                'active' => 'Pengajuan Cuti',
                 'formcutis' => $formcutis,
                 'startDate' => $startDate,
                 'endDate' => $endDate,

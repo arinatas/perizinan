@@ -23,7 +23,7 @@ class FormSetHariController extends Controller
             return view('admin.pengajuan.formsethari.index', [
                 'title' => 'Pengajuan Izin Setengah Hari',
                 'section' => 'Pengajuan',
-                'active' => 'formsethari',
+                'active' => 'Pengajuan Izin Setengah Hari',
                 'formsetharis' => $formsetharis,
                 'startDate' => $startDate,
                 'endDate' => $endDate,
