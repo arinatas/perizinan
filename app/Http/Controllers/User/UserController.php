@@ -45,43 +45,43 @@ class UserController extends Controller
             // form izin
             $formIzin = FormIzin::where('id_devisi', $devisiId)
                         ->where('tanggal', 'like', '%' . $tahunSekarang . '%')
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('id', 'desc')
                         ->get();
 
             // form sakit
             $formSakit = FormSakit::where('id_devisi', $devisiId)
                         ->where('tanggal', 'like', '%' . $tahunSekarang . '%')
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('id', 'desc')
                         ->get();
 
             // izin 1/2 hari
             $formSetHari = FormSetHari::where('id_devisi', $devisiId)
                         ->where('tanggal', 'like', '%' . $tahunSekarang . '%')
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('id', 'desc')
                         ->get();
 
             // izin meninggalkan tugas
             $formMeninggalkanTugas = FormMeninggalkanTugas::where('id_devisi', $devisiId)
                         ->where('tanggal', 'like', '%' . $tahunSekarang . '%')
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('id', 'desc')
                         ->get();
 
             // izin keluar kantor
             $formFormTgsKlrKantor = FormTgsKlrKantor::where('id_devisi', $devisiId)
                         ->where('tanggal', 'like', '%' . $tahunSekarang . '%')
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('id', 'desc')
                         ->get();
 
             // cuti
             $formCuti = FormCuti::where('id_devisi', $devisiId)
                         ->where('tanggal_mulai', 'like', '%' . $tahunSekarang . '%')
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('id', 'desc')
                         ->get();
 
             // lemburs
             $formLembur = FormLembur::where('id_devisi', $devisiId)
                         ->where('tanggal', 'like', '%' . $tahunSekarang . '%')
-                        ->orderBy('created_at', 'desc')
+                        ->orderBy('id', 'desc')
                         ->get();
 
 
