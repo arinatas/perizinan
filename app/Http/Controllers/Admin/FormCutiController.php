@@ -45,12 +45,30 @@ class FormCutiController extends Controller
     public function approveSdm($id)
     {
         $formCuti = FormCuti::findOrFail($id);
-        $formCuti->approve_sdm = 1; // Set to 1 for approval, 2 for rejection
-        $formCuti->save();
-
+    
+        // Periksa apakah approve_sdm awalnya adalah 0
+        if ($formCuti->approve_sdm == 0) {
+            $formCuti->approve_sdm = 1; // Setujui dengan nilai 1
+            $formCuti->save();
+        } elseif ($formCuti->approve_sdm == 2) {
+            // Jika approve_sdm awalnya adalah 2, kurangkan jumlah_cuti dari master_cuti
+            $masterCuti = Cuti::where('id_user', $formCuti->id_user)
+                ->where('tahun', date('Y')) // Asumsi bahwa Anda ingin mengurangkan dari tahun saat ini
+                ->first();
+    
+            // Periksa apakah ada catatan master_cuti
+            if ($masterCuti) {
+                $masterCuti->jumlah_cuti -= $formCuti->jumlah_cuti;
+                $masterCuti->save();
+            }
+            
+            $formCuti->approve_sdm = 1; // Setujui dengan nilai 1
+            $formCuti->save();
+        }
+    
         return redirect()->back()->with('success', 'Form approved by SDM.');
     }
-    
+
     public function rejectAtasan($id)
     {
         $formCuti = FormCuti::findOrFail($id);
