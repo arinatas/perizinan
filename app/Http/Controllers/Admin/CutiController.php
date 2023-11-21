@@ -100,12 +100,16 @@ class CutiController extends Controller
 
         $users = Akun::where('is_admin', 0)->get();
 
+        // Simpan tahun saat ini ke dalam sesi
+        session(['currentYear' => $cuti->tahun]);
+
         return view('admin.master.cuti.edit', [
             'title' => 'Cuti',
             'section' => 'Master',
             'active' => 'cuti',
             'cuti' => $cuti,
             'users' => $users,
+            'currentYear' => $cuti->tahun, // Sertakan tahun saat ini dalam data yang dikirimkan ke tampilan
         ]);
     }
 
@@ -147,7 +151,11 @@ class CutiController extends Controller
 
             $cuti->save();
 
-            return redirect('/cuti')->with('updateSuccess', 'Data berhasil di Update');
+            // Ambil tahun dari sesi
+            $currentYear = session('currentYear', null);
+
+            // Redirect ke halaman sebelumnya dengan tetap membawa filter tahun
+            return redirect()->route('cuti', ['year' => $currentYear])->with('updateSuccess', 'Data berhasil di Update');
         } catch(Exception $e) {
             dd($e);
             return redirect()->back()->with('updateFail', 'Data gagal di Update');
