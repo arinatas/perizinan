@@ -111,7 +111,7 @@
                                                             </td>
                                                             <td>
                                                                 @if ($izin->bukti_pendukung)
-                                                                    <a href="javascript:void(0);" onclick="showBuktiPendukung('{{ asset('uploads/' . $izin->bukti_pendukung) }}')">
+                                                                    <a href="javascript:void(0);" onclick="showBuktiPendukung('{{ asset('storage/' . $izin->bukti_pendukung) }}')">
                                                                         @if (pathinfo($izin->bukti_pendukung, PATHINFO_EXTENSION) === 'pdf')
                                                                             <i class="fas fa-file-pdf text-danger fa-2x"></i> View
                                                                         @else
@@ -188,7 +188,7 @@
                                                             </td>
                                                             <td>
                                                                 @if ($izin->bukti_pendukung)
-                                                                    <a href="javascript:void(0);" onclick="showBuktiPendukung('{{ asset('uploads/' . $izin->bukti_pendukung) }}')">
+                                                                    <a href="javascript:void(0);" onclick="showBuktiPendukung('{{ asset('storage/' . $izin->bukti_pendukung) }}')">
                                                                         @if (pathinfo($izin->bukti_pendukung, PATHINFO_EXTENSION) === 'pdf')
                                                                             <i class="fas fa-file-pdf text-danger fa-2x"></i> View
                                                                         @else
@@ -393,7 +393,7 @@
                                                             </td>
                                                             <td>
                                                                 @if ($izin->bukti_pendukung)
-                                                                    <a href="javascript:void(0);" onclick="showBuktiPendukung('{{ asset('uploads/' . $izin->bukti_pendukung) }}')">
+                                                                    <a href="javascript:void(0);" onclick="showBuktiPendukung('{{ asset('storage/' . $izin->bukti_pendukung) }}')">
                                                                         @if (pathinfo($izin->bukti_pendukung, PATHINFO_EXTENSION) === 'pdf')
                                                                             <i class="fas fa-file-pdf text-danger fa-2x"></i> View
                                                                         @else
@@ -476,7 +476,7 @@
                                                             </td>
                                                             <td>
                                                                 @if ($izin->bukti_pendukung)
-                                                                    <a href="javascript:void(0);" onclick="showBuktiPendukung('{{ asset('uploads/' . $izin->bukti_pendukung) }}')">
+                                                                    <a href="javascript:void(0);" onclick="showBuktiPendukung('{{ asset('storage/' . $izin->bukti_pendukung) }}')">
                                                                         @if (pathinfo($izin->bukti_pendukung, PATHINFO_EXTENSION) === 'pdf')
                                                                             <i class="fas fa-file-pdf text-danger fa-2x"></i> View
                                                                         @else
@@ -555,7 +555,7 @@
                                                             </td>
                                                             <td>
                                                                 @if ($izin->bukti_pendukung)
-                                                                    <a href="javascript:void(0);" onclick="showBuktiPendukung('{{ asset('uploads/' . $izin->bukti_pendukung) }}')">
+                                                                    <a href="javascript:void(0);" onclick="showBuktiPendukung('{{ asset('storage/' . $izin->bukti_pendukung) }}')">
                                                                         @if (pathinfo($izin->bukti_pendukung, PATHINFO_EXTENSION) === 'pdf')
                                                                             <i class="fas fa-file-pdf text-danger fa-2x"></i> View
                                                                         @else

@@ -55,11 +55,8 @@ class OutOfficeAssignController extends Controller
         try{
             DB::beginTransaction();
             // cek jika ada file upload
-            $fileName = null;
             if ($request->file('bukti_pendukung')) {
-                $file = $request->file('bukti_pendukung');
-                $fileName = Str::slug(Carbon::now()) . '-' . $file->getClientOriginalName();
-                $file->move(public_path('uploads'), $fileName);
+                $fileName = $request->file('bukti_pendukung')->store('images');
             }
 
             // insert data pada tabel t_jurnal
