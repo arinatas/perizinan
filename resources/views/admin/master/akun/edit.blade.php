@@ -49,7 +49,7 @@
 										@foreach($atasans as $atasan)
 											@if ($atasan->atasanUser) <!-- Pengecekan apakah atasan memiliki data atasanUser -->
 												<option value="{{ $atasan->id }}" {{ $akun->id_devisi == $atasan->id ? 'selected' : '' }}>
-													{{ $atasan->atasanUser->nama ?? 'Nama Tidak Tersedia' }}
+													{{ $atasan->nama_devisi ?? '-' }} - {{ $atasan->atasanUser->nama ?? 'Nama Tidak Tersedia' }}
 												</option>
 											@endif
 										@endforeach
