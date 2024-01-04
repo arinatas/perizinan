@@ -186,7 +186,7 @@
                                                             <!-- Loop melalui devisis dan akses relasi atasanUser -->
                                                             @foreach($atasans as $atasan)
                                                                 @if($atasan->atasanUser) <!-- Periksa apakah atasanUser ada -->
-                                                                    <option value="{{ $atasan->id }}">{{ $atasan->atasanUser->nama ?? 'Nama Tidak Tersedia' }}</option>
+                                                                    <option value="{{ $atasan->id }}">{{ $atasan->nama_devisi ?? '-' }} - {{ $atasan->atasanUser->nama ?? 'Nama Tidak Tersedia' }}</option>
                                                                 @endif
                                                             @endforeach
                                                         </select>
