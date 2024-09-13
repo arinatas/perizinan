@@ -73,7 +73,7 @@ class UserCutiController extends Controller
                             'jenis_cuti' => 'required',
                             'alamat' => 'required|string',
                             'no_hp' => 'required|string|max:100',
-                            'bukti_pendukung' => 'required|file|max:2048|mimes:jpeg,png,pdf,jpg',
+                            'bukti_pendukung' => 'nullable|file|max:2048|mimes:jpeg,png,pdf,jpg',
                             'keperluan' => 'required|string|max:255',
                         ]);
 
@@ -94,6 +94,8 @@ class UserCutiController extends Controller
 
                             $cuti->save();
 
+                            // Inisialisasi variabel fileName dengan null
+                            $fileName = null;
                             // cek jika ada file upload
                             if ($request->file('bukti_pendukung')) {
                                 $fileName = $request->file('bukti_pendukung')->store('images');
@@ -126,7 +128,7 @@ class UserCutiController extends Controller
                             // dd($e->getMessage());
                             return redirect()->back()->with('insertFail', 'Failed to create request.');
                         }
-                       
+
                     } else {
                         return redirect()->back()->with('insertFail', 'Jumlah cuti yang di ajukan melebihi jatah cuti yang dimiliki.');
                     }
@@ -152,7 +154,7 @@ class UserCutiController extends Controller
             'jenis_cuti' => 'required',
             'alamat' => 'required|string',
             'no_hp' => 'required|string|max:100',
-            'bukti_pendukung' => 'required|file|max:2048|mimes:jpeg,png,pdf,jpg',
+            'bukti_pendukung' => 'nullable|file|max:2048|mimes:jpeg,png,pdf,jpg',
             'keperluan' => 'required|string|max:255',
         ]);
 

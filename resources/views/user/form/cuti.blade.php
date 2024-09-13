@@ -184,12 +184,12 @@
 								<div class="d-flex flex-column mb-7 col-lg-6">
 									<!--begin::Label-->
 									<label class="d-flex align-items-center fs-6 fw-bold mb-2">
-										<span class="required">File bukti pendukung (File Upload)</span>
+										<span class="">File bukti pendukung (File Upload)</span>
 									</label>
 									<!--end::Label-->
 									<input type="file" required name="bukti_pendukung" class="form-control form-control-solid" placeholder="Enter Target Title" />
 									<span class="text-danger fs-8 mt-1 mx-2">
-										Max file size : 2 mb / 2048 kb
+                                        Max file size : 2 mb / 2048 kb ( File berupa pdf atau jpg)
 									</span>
 								</div>
 								<!--end::Input group-->

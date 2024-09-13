@@ -41,7 +41,7 @@ class OvertimeController extends Controller
             'jam_mulai' => 'required',
             'jam_selesai' => 'required',
             'durasi_lembur' => 'required',
-            'bukti_pendukung' => 'nullable|file|max:2048|mimes:jpeg,png,pdf,jpg',
+            'bukti_pendukung' => 'required|file|max:2048|mimes:jpeg,png,pdf,jpg',
             'keterangan_pekerjaan' => 'required|string|max:255',
         ]);
 
