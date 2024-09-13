@@ -35,7 +35,8 @@
 																	<thead>
 																		<tr class="fw-bold fs-5">
 																			<th>Nama</th>
-																			<th>Tgl</th>
+																			<th>Tgl Mulai</th>
+                                                                            <th>Tgl Selesai</th>
 																			<th>Jml</th>
 																			<th>Keperluan</th>
 																			<th>Atasan</th>
@@ -47,7 +48,8 @@
 																		@foreach($formIzin as $item)
 																			<tr>
 																				<td>{{ $item->nama }}</td>
-																				<td>{{ $item->tanggal }}</td>
+																				<td>{{ $item->tanggal_mulai }}</td>
+                                                                                <td>{{ $item->tanggal_selesai }}</td>
 																				<td>{{ $item->jumlah_izin }} Hari</td>
 																				<td>{{ $item->keperluan }}</td>
 																				<td>
@@ -69,7 +71,7 @@
 																							</g>
 																						</svg><!--end::Svg Icon--></span>
 																					</a>
-									
+
 																					<!--begin::Modal - New Card-->
 																					<div class="modal fade" id="detailModalIzin{{ $item->id }}" tabindex="-1" aria-hidden="true">
 																						<!--begin::Modal dialog-->
@@ -102,11 +104,11 @@
 																										@php
 																											$extension = pathinfo($item->bukti_pendukung, PATHINFO_EXTENSION);
 																										@endphp
-									
+
 																										@if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif']))
 																											{{-- Display image --}}
 																											<img src="{{ asset('storage/' . $item->bukti_pendukung) }}" alt="Bukti Pendukung" class="img-fluid mx-auto d-block mt-10">
-									
+
 																										@elseif (in_array(strtolower($extension), ['pdf']))
 																											{{-- Display PDF --}}
 																											<a href="{{ asset('storage/' . $item->bukti_pendukung) }}" target="_blank">View PDF</a>
@@ -135,7 +137,7 @@
 																							@csrf
 																							<button type="button"  onclick="showConfirmation(event)" class="btn btn-sm btn-success btn-action w-100" data-toggle="tooltip" title="Approve Atasan"><i class="fas fa-check"></i></button>
 																						</form>
-						
+
 																						<form method="post" action="{{ route('formizin.reject-atasan', $item->id) }}">
 																							@csrf
 																							<button type="button"  onclick="showConfirmation(event)" class="btn btn-sm btn-danger btn-action w-100" style="margin-left: 5px" data-toggle="tooltip" title="Reject Atasan"><i class="fas fa-times"></i></button>
@@ -173,7 +175,8 @@
 																	<thead>
 																		<tr class="fw-bold fs-5">
 																			<th>Nama</th>
-																			<th>Tgl</th>
+																			<th>Tgl Mulai</th>
+                                                                            <th>Tgl Selesai</th>
 																			<th>Jml</th>
 																			<th>Keterangan</th>
 																			<th>Atasan</th>
@@ -185,7 +188,8 @@
 																		@foreach($formSakit as $item)
 																			<tr>
 																				<td>{{ $item->nama }}</td>
-																				<td>{{ $item->tanggal }}</td>
+																				<td>{{ $item->tanggal_mulai }}</td>
+                                                                                <td>{{ $item->tanggal_selesai }}</td>
 																				<td>{{ $item->jumlah_izin }} Hari</td>
 																				<td>{{ $item->keterangan }}</td>
 																				<td>
@@ -207,7 +211,7 @@
 																							</g>
 																						</svg><!--end::Svg Icon--></span>
 																					</a>
-									
+
 																					<!--begin::Modal - New Card-->
 																					<div class="modal fade" id="detailModalSakit{{ $item->id }}" tabindex="-1" aria-hidden="true">
 																						<!--begin::Modal dialog-->
@@ -240,11 +244,11 @@
 																										@php
 																											$extension = pathinfo($item->bukti_pendukung, PATHINFO_EXTENSION);
 																										@endphp
-									
+
 																										@if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif']))
 																											{{-- Display image --}}
 																											<img src="{{ asset('storage/' . $item->bukti_pendukung) }}" alt="Bukti Pendukung" class="img-fluid mx-auto d-block mt-10">
-									
+
 																										@elseif (in_array(strtolower($extension), ['pdf']))
 																											{{-- Display PDF --}}
 																											<a href="{{ asset('storage/' . $item->bukti_pendukung) }}" target="_blank">View PDF</a>
@@ -273,7 +277,7 @@
 																							@csrf
 																							<button type="button"  onclick="showConfirmation(event)" class="btn btn-sm btn-success btn-action w-100" data-toggle="tooltip" title="Approve Atasan"><i class="fas fa-check"></i></button>
 																						</form>
-						
+
 																						<form method="post" action="{{ route('formsakit.reject-atasan', $item->id) }}">
 																							@csrf
 																							<button type="button"  onclick="showConfirmation(event)" class="btn btn-sm btn-danger btn-action w-100" style="margin-left: 5px" data-toggle="tooltip" title="Reject Atasan"><i class="fas fa-times"></i></button>
@@ -342,7 +346,7 @@
 																							@csrf
 																							<button type="button"  onclick="showConfirmation(event)" class="btn btn-sm btn-success btn-action w-100" data-toggle="tooltip" title="Approve Atasan"><i class="fas fa-check"></i></button>
 																						</form>
-						
+
 																						<form method="post" action="{{ route('formsethari.reject-atasan', $item->id) }}">
 																							@csrf
 																							<button type="button"  onclick="showConfirmation(event)" class="btn btn-sm btn-danger btn-action w-100" style="margin-left: 5px" data-toggle="tooltip" title="Reject Atasan"><i class="fas fa-times"></i></button>
@@ -411,7 +415,7 @@
 																							@csrf
 																							<button type="button"  onclick="showConfirmation(event)" class="btn btn-sm btn-success btn-action w-100" data-toggle="tooltip" title="Approve Atasan"><i class="fas fa-check"></i></button>
 																						</form>
-						
+
 																						<form method="post" action="{{ route('formmeninggalkantugas.reject-atasan', $item->id) }}">
 																							@csrf
 																							<button type="button"  onclick="showConfirmation(event)" class="btn btn-sm btn-danger btn-action w-100" style="margin-left: 5px" data-toggle="tooltip" title="Reject Atasan"><i class="fas fa-times"></i></button>
@@ -449,7 +453,8 @@
 																	<thead>
 																		<tr class="fw-bold fs-5">
 																			<th>Nama</th>
-																			<th>Tgl</th>
+																			<th>Tgl Mulai</th>
+                                                                            <th>Tgl Selesai</th>
 																			<th>Waktu</th>
 																			<th>Keperluan</th>
 																			<th>Atasan</th>
@@ -461,7 +466,8 @@
 																		@foreach($formFormTgsKlrKantor as $item)
 																			<tr>
 																				<td>{{ $item->nama }}</td>
-																				<td>{{ $item->tanggal }}</td>
+																				<td>{{ $item->tanggal_mulai }}</td>
+                                                                                <td>{{ $item->tanggal_selesai }}</td>
 																				<td>{{ $item->jam_mulai }} ~ {{ $item->jam_selesai }}</td>
 																				<td>{{ $item->keperluan }}</td>
 																				<td>
@@ -483,7 +489,7 @@
 																							</g>
 																						</svg><!--end::Svg Icon--></span>
 																					</a>
-									
+
 																					<!--begin::Modal - New Card-->
 																					<div class="modal fade" id="detailModalTugasKeluar{{ $item->id }}" tabindex="-1" aria-hidden="true">
 																						<!--begin::Modal dialog-->
@@ -516,11 +522,11 @@
 																										@php
 																											$extension = pathinfo($item->bukti_pendukung, PATHINFO_EXTENSION);
 																										@endphp
-									
+
 																										@if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif']))
 																											{{-- Display image --}}
 																											<img src="{{ asset('storage/' . $item->bukti_pendukung) }}" alt="Bukti Pendukung" class="img-fluid mx-auto d-block mt-10">
-									
+
 																										@elseif (in_array(strtolower($extension), ['pdf']))
 																											{{-- Display PDF --}}
 																											<a href="{{ asset('storage/' . $item->bukti_pendukung) }}" target="_blank">View PDF</a>
@@ -549,7 +555,7 @@
 																							@csrf
 																							<button type="button"  onclick="showConfirmation(event)" class="btn btn-sm btn-success btn-action w-100" data-toggle="tooltip" title="Approve Atasan"><i class="fas fa-check"></i></button>
 																						</form>
-						
+
 																						<form method="post" action="{{ route('formtgsklrkantor.reject-atasan', $item->id) }}">
 																							@csrf
 																							<button type="button"  onclick="showConfirmation(event)" class="btn btn-sm btn-danger btn-action w-100" style="margin-left: 5px" data-toggle="tooltip" title="Reject Atasan"><i class="fas fa-times"></i></button>
@@ -623,7 +629,7 @@
 																							</g>
 																						</svg><!--end::Svg Icon--></span>
 																					</a>
-									
+
 																					<!--begin::Modal - New Card-->
 																					<div class="modal fade" id="detailModalLembur{{ $item->id }}" tabindex="-1" aria-hidden="true">
 																						<!--begin::Modal dialog-->
@@ -656,11 +662,11 @@
 																										@php
 																											$extension = pathinfo($item->bukti_pendukung, PATHINFO_EXTENSION);
 																										@endphp
-									
+
 																										@if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif']))
 																											{{-- Display image --}}
 																											<img src="{{ asset('storage/' . $item->bukti_pendukung) }}" alt="Bukti Pendukung" class="img-fluid mx-auto d-block mt-10">
-									
+
 																										@elseif (in_array(strtolower($extension), ['pdf']))
 																											{{-- Display PDF --}}
 																											<a href="{{ asset('storage/' . $item->bukti_pendukung) }}" target="_blank">View PDF</a>
@@ -689,7 +695,7 @@
 																							@csrf
 																							<button type="button"  onclick="showConfirmation(event)" class="btn btn-sm btn-success btn-action w-100" data-toggle="tooltip" title="Approve Atasan"><i class="fas fa-check"></i></button>
 																						</form>
-						
+
 																						<form method="post" action="{{ route('formlembur.reject-atasan', $item->id) }}">
 																							@csrf
 																							<button type="button"  onclick="showConfirmation(event)" class="btn btn-sm btn-danger btn-action w-100" style="margin-left: 5px" data-toggle="tooltip" title="Reject Atasan"><i class="fas fa-times"></i></button>
@@ -761,7 +767,7 @@
 																							</g>
 																						</svg><!--end::Svg Icon--></span>
 																					</a>
-									
+
 																					<!--begin::Modal - New Card-->
 																					<div class="modal fade" id="detailModalCuti{{ $item->id }}" tabindex="-1" aria-hidden="true">
 																						<!--begin::Modal dialog-->
@@ -794,11 +800,11 @@
 																										@php
 																											$extension = pathinfo($item->bukti_pendukung, PATHINFO_EXTENSION);
 																										@endphp
-									
+
 																										@if (in_array(strtolower($extension), ['jpg', 'jpeg', 'png', 'gif']))
 																											{{-- Display image --}}
 																											<img src="{{ asset('storage/' . $item->bukti_pendukung) }}" alt="Bukti Pendukung" class="img-fluid mx-auto d-block mt-10">
-									
+
 																										@elseif (in_array(strtolower($extension), ['pdf']))
 																											{{-- Display PDF --}}
 																											<a href="{{ asset('storage/' . $item->bukti_pendukung) }}" target="_blank">View PDF</a>
@@ -827,7 +833,7 @@
 																							@csrf
 																							<button type="button"  onclick="showConfirmation(event)" class="btn btn-sm btn-success btn-action w-100" data-toggle="tooltip" title="Approve Atasan"><i class="fas fa-check"></i></button>
 																						</form>
-						
+
 																						<form method="post" action="{{ route('formcuti.reject-atasan', $item->id) }}">
 																							@csrf
 																							<button type="button"  onclick="showConfirmation(event)" class="btn btn-sm btn-danger btn-action w-100" style="margin-left: 5px" data-toggle="tooltip" title="Reject Atasan"><i class="fas fa-times"></i></button>

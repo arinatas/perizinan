@@ -35,22 +35,22 @@ class UserController extends Controller
     public function rekapanAtasan(){
 
         $isIAmLeader = Atasan::where('id_atasan', auth()->user()->id)->exists();
-        
+
         if($isIAmLeader) {
 
             $devisiId = Atasan::where('id_atasan', auth()->user()->id)->value('id');
-            
+
             $tahunSekarang = Carbon::now()->year;
 
             // form izin
             $formIzin = FormIzin::where('id_devisi', $devisiId)
-                        ->where('tanggal', 'like', '%' . $tahunSekarang . '%')
+                        ->where('tanggal_mulai', 'like', '%' . $tahunSekarang . '%')
                         ->orderBy('id', 'desc')
                         ->get();
 
             // form sakit
             $formSakit = FormSakit::where('id_devisi', $devisiId)
-                        ->where('tanggal', 'like', '%' . $tahunSekarang . '%')
+                        ->where('tanggal_mulai', 'like', '%' . $tahunSekarang . '%')
                         ->orderBy('id', 'desc')
                         ->get();
 
@@ -68,7 +68,7 @@ class UserController extends Controller
 
             // izin keluar kantor
             $formFormTgsKlrKantor = FormTgsKlrKantor::where('id_devisi', $devisiId)
-                        ->where('tanggal', 'like', '%' . $tahunSekarang . '%')
+                        ->where('tanggal_mulai', 'like', '%' . $tahunSekarang . '%')
                         ->orderBy('id', 'desc')
                         ->get();
 
