@@ -41,7 +41,7 @@ class OvertimeController extends Controller
             'jam_mulai' => 'required',
             'jam_selesai' => 'required',
             'durasi_lembur' => 'required',
-            'bukti_pendukung' => 'required|file|max:2048|mimes:jpeg,png,pdf,jpg',
+            'bukti_pendukung' => 'nullable|file|max:2048|mimes:jpeg,png,pdf,jpg',
             'keterangan_pekerjaan' => 'required|string|max:255',
         ]);
 
@@ -54,6 +54,8 @@ class OvertimeController extends Controller
         // mulai try catch untuk menangkap error jika terjadi error pada saat penginputan database
         try{
             DB::beginTransaction();
+            // Inisialisasi variabel fileName dengan null
+            $fileName = null;
             // cek jika ada file upload
             if ($request->file('bukti_pendukung')) {
                 $fileName = $request->file('bukti_pendukung')->store('images');
