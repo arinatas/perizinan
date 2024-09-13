@@ -18,7 +18,7 @@ class FormSakitController extends Controller
         $endDate = $request->input('end_date');
 
         $formsakits = FormSakit::with('devisi')
-            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->whereBetween('tanggal_mulai', [$startDate, $endDate])
             ->orderBy('id', 'desc')
             ->get();
 
@@ -55,34 +55,34 @@ class FormSakitController extends Controller
         $formSakit = FormSakit::findOrFail($id);
         $formSakit->approve_atasan = 0; // Set to 0 for unapproval
         $formSakit->save();
-    
+
         return redirect()->back()->with('success', 'Form unapproved by Atasan.');
     }
-    
+
     public function unapproveSdm($id)
     {
         $formSakit = FormSakit::findOrFail($id);
         $formSakit->approve_sdm = 0; // Set to 0 for unapproval
         $formSakit->save();
-    
+
         return redirect()->back()->with('success', 'Form unapproved by SDM.');
     }
-    
+
     public function rejectAtasan($id)
     {
         $formSakit = FormSakit::findOrFail($id);
         $formSakit->approve_atasan = 2; // Set to 2 for rejection
         $formSakit->save();
-    
+
         return redirect()->back()->with('success', 'Form rejected by Atasan.');
     }
-    
+
     public function rejectSdm($id)
     {
         $formSakit = FormSakit::findOrFail($id);
         $formSakit->approve_sdm = 2; // Set to 2 for rejection
         $formSakit->save();
-    
+
         return redirect()->back()->with('success', 'Form rejected by SDM.');
-    }    
+    }
 }

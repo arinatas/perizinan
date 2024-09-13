@@ -57,7 +57,8 @@
                                                     <th class="min-w-100px">No</th>
                                                     <th class="min-w-100px">Nama</th>
                                                     <th class="min-w-100px">Jabatan</th>
-                                                    <th class="min-w-100px">Tanggal</th>
+                                                    <th class="min-w-100px">Tanggal Mulai</th>
+                                                    <th class="min-w-100px">Tanggal Selesai</th>
                                                     <th class="min-w-50px">Jam Mulai</th>
                                                     <th class="min-w-50px">Jam Selesai</th>
                                                     <th class="min-w-100px">Approve Atasan</th>
@@ -76,7 +77,8 @@
                                                         <td>{{ $no }}</td>
                                                         <td>{{ $item->nama }}</td>
                                                         <td>{{ $item->jabatan }}</td>
-                                                        <td>{{ $item->tanggal }}</td>
+                                                        <td>{{ $item->tanggal_mulai }}</td>
+                                                        <td>{{ $item->tanggal_selesai }}</td>
                                                         <td>{{ $item->jam_mulai }}</td>
                                                         <td>{{ $item->jam_selesai }}</td>
                                                         <td>
@@ -185,8 +187,12 @@
                                                                                     <td>{{ $item->devisi->nama_devisi }}</td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <th>Tanggal Izin</th>
-                                                                                    <td>{{ $item->tanggal }}</td>
+                                                                                    <th>Tanggal Mulai</th>
+                                                                                    <td>{{ $item->tanggal_mulai }}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th>Tanggal Selesai</th>
+                                                                                    <td>{{ $item->tanggal_selesai }}</td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <th>Jam Mulai</th>

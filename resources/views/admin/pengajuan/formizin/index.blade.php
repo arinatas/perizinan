@@ -57,7 +57,8 @@
                                                     <th class="min-w-100px">No</th>
                                                     <th class="min-w-100px">Nama</th>
                                                     <th class="min-w-100px">Jabatan</th>
-                                                    <th class="min-w-100px">Tanggal</th>
+                                                    <th class="min-w-100px">Tanggal Mulai</th>
+                                                    <th class="min-w-100px">Tanggal Selesai</th>
                                                     <th class="min-w-100px">Jumlah Izin</th>
                                                     <th class="min-w-100px">Approve Atasan</th>
                                                     <th class="min-w-100px">Approve SDM</th>
@@ -75,7 +76,8 @@
                                                         <td>{{ $no }}</td>
                                                         <td>{{ $item->nama }}</td>
                                                         <td>{{ $item->jabatan }}</td>
-                                                        <td>{{ $item->tanggal }}</td>
+                                                        <td>{{ $item->tanggal_mulai }}</td>
+                                                        <td>{{ $item->tanggal_selesai }}</td>
                                                         <td>{{ $item->jumlah_izin }} Hari</td>
                                                         <td>
                                                             @if($item->approve_atasan == 0)
@@ -183,8 +185,12 @@
                                                                                     <td>{{ $item->devisi->nama_devisi }}</td>
                                                                                 </tr>
                                                                                 <tr>
-                                                                                    <th>Tanggal Izin</th>
-                                                                                    <td>{{ $item->tanggal }}</td>
+                                                                                    <th>Tanggal Mulai</th>
+                                                                                    <td>{{ $item->tanggal_mulai }}</td>
+                                                                                </tr>
+                                                                                <tr>
+                                                                                    <th>Tanggal Selesai</th>
+                                                                                    <td>{{ $item->tanggal_selesai }}</td>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <th>Jumlah Izin</th>

@@ -34,7 +34,7 @@ class RekapanController extends Controller
         $izinLemburCounts = [];
 
         // Inisiasi Array untuk menyimpan Sum jumlah hari atau jam TOTAL
-        $jumlahIzinCounts = []; 
+        $jumlahIzinCounts = [];
         $jumlahSakitCounts = [];
         $jumlahCutiCounts = [];
         $jumlahLemburCounts = [];
@@ -47,13 +47,13 @@ class RekapanController extends Controller
         foreach ($akuns as $akun) {
             // Ambil jumlah izin berdasarkan id_user dan rentang tanggal dari tabel izin
             $izinCount = FormIzin::where('id_user', $akun->id)
-                ->whereBetween('tanggal', [$startDate, $endDate])
+                ->whereBetween('tanggal_mulai', [$startDate, $endDate])
                 ->count();
             $izinCounts[$akun->id] = $izinCount;
 
             // Ambil jumlah izin sakit berdasarkan id_user dari tabel sakit
             $izinSakitCount = FormSakit::where('id_user', $akun->id)
-                ->whereBetween('tanggal', [$startDate, $endDate])
+                ->whereBetween('tanggal_mulai', [$startDate, $endDate])
                 ->count();
             $izinSakitCounts[$akun->id] = $izinSakitCount;
 
@@ -71,7 +71,7 @@ class RekapanController extends Controller
 
             // Ambil jumlah izin tugas keluar kantor berdasarkan id_user dari tabel tugas keluar kantor
             $izinTgsKlrKantorCount = FormTgsKlrKantor::where('id_user', $akun->id)
-                ->whereBetween('tanggal', [$startDate, $endDate])
+                ->whereBetween('tanggal_mulai', [$startDate, $endDate])
                 ->count();
             $izinTgsKlrKantorCounts[$akun->id] = $izinTgsKlrKantorCount;
 
@@ -89,13 +89,13 @@ class RekapanController extends Controller
 
             // Ambil Total jumlah izin berdasarkan id_user dari tabel izin
             $jumlahIzinCount = FormIzin::where('id_user', $akun->id)
-                ->whereBetween('tanggal', [$startDate, $endDate])
+                ->whereBetween('tanggal_mulai', [$startDate, $endDate])
                 ->sum('jumlah_izin');
             $jumlahIzinCounts[$akun->id] = $jumlahIzinCount;
 
             // Ambil Total jumlah sakit berdasarkan id_user dari tabel sakit
             $jumlahSakitCount = FormSakit::where('id_user', $akun->id)
-                ->whereBetween('tanggal', [$startDate, $endDate])
+                ->whereBetween('tanggal_mulai', [$startDate, $endDate])
                 ->sum('jumlah_izin');
             $jumlahSakitCounts[$akun->id] = $jumlahSakitCount;
 
