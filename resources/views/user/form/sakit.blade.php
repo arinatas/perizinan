@@ -134,7 +134,7 @@
 									<!--end::Label-->
 									<input type="file" required name="bukti_pendukung" class="form-control form-control-solid" placeholder="Enter Target Title" />
 									<span class="text-danger fs-8 mt-1 mx-2">
-										Max file size : 2 mb / 2048 kb
+                                        Max file size : 2 mb / 2048 kb ( File berupa pdf atau jpg)
 									</span>
 								</div>
 								<!--end::Input group-->

@@ -40,7 +40,7 @@ class IzinController extends Controller
             'tanggal' => 'required|date',
             'jumlah_izin' => 'required',
             'no_hp' => 'required|string|max:100',
-            'bukti_pendukung' => 'required|file|max:2048|mimes:jpeg,png,pdf,jpg',
+            'bukti_pendukung' => 'nullable|file|max:2048|mimes:jpeg,png,pdf,jpg',
             'keperluan' => 'required|string|max:255',
         ]);
 
@@ -53,6 +53,8 @@ class IzinController extends Controller
         // mulai try catch untuk menangkap error jika terjadi error pada saat penginputan database
         try{
             DB::beginTransaction();
+            // Inisialisasi variabel fileName dengan null
+            $fileName = null;
             // cek jika ada file upload
             if ($request->file('bukti_pendukung')) {
                 $fileName = $request->file('bukti_pendukung')->store('images');
