@@ -142,7 +142,13 @@
 										<span class="required">Jumlah Cuti</span>
 									</label>
 									<!--end::Label-->
-                                        <input type="number" required class="form-control form-control-solid" placeholder="Jumlah Cuti" name="jumlah_cuti" />
+                                        <!-- <input type="number" required class="form-control form-control-solid" placeholder="Jumlah Cuti" name="jumlah_cuti" /> -->
+                                        <select class="form-select form-select-solid" required data-control="select2" data-hide-search="true" data-placeholder="Pilih jumlah cuti" name="jumlah_cuti">
+										<option value="">Pilih jumlah izin</option>
+										<option value="1">1 Hari</option>
+										<option value="2">2 Hari</option>
+										<option value="3">3 Hari</option>
+									</select>
 								</div>
 								<!--end::Input group-->
                                 <!--begin::Input group-->

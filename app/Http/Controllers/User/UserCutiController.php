@@ -167,6 +167,8 @@ class UserCutiController extends Controller
         // mulai try catch untuk menangkap error jika terjadi error pada saat penginputan database
         try{
             DB::beginTransaction();
+            // Inisialisasi variabel fileName dengan null
+            $fileName = null;
             // cek jika ada file upload
             if ($request->file('bukti_pendukung')) {
                 $fileName = $request->file('bukti_pendukung')->store('images');
