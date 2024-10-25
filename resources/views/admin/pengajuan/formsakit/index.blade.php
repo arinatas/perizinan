@@ -267,6 +267,13 @@
                                                                             <!--end::content modal body-->
                                                                         </div>
                                                                         <!--end::Modal body-->
+                                                                        <!-- Modal Footer with Back and Next Buttons -->
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                            <button type="button" class="btn btn-danger" onclick="openPreviousModal({{ $item->id }})">Back</button>
+                                                                            <button type="button" class="btn btn-primary" onclick="openNextModal({{ $item->id }})">Next</button>
+                                                                        </div>
+                                                                        <!-- End Modal Footer with Back and Next Buttons -->
                                                                     </div>
                                                                     <!--end::Modal content-->
                                                                 </div>
@@ -402,5 +409,96 @@
                             const header = table.rows[0].cells[columnIndex];
                             header.innerHTML = header.innerHTML.includes('▲') ? header.innerHTML.replace('▲', '▼') : header.innerHTML.replace('▼', '▲');
                         }
+                    </script>
+                    <script>
+                        let sortOrder = {}; // Object to track sort order for each column
+
+                        function sortTable(columnIndex) {
+                            const table = document.getElementById("sortableTable");
+                            const tbody = table.tBodies[0];
+                            const rows = Array.from(tbody.rows);
+                            const type = table.rows[0].cells[columnIndex].getAttribute('data-type');
+
+                            // Determine the current sort order
+                            const currentOrder = sortOrder[columnIndex] || 'asc';
+                            const newOrder = currentOrder === 'asc' ? 'desc' : 'asc';
+                            sortOrder[columnIndex] = newOrder; // Update the sort order for the clicked column
+
+                            const sortedRows = rows.sort((a, b) => {
+                                const aText = a.cells[columnIndex].textContent.trim();
+                                const bText = b.cells[columnIndex].textContent.trim();
+
+                                if (type === 'string') {
+                                    return newOrder === 'asc'
+                                        ? aText.localeCompare(bText)
+                                        : bText.localeCompare(aText);
+                                }
+                                return newOrder === 'asc'
+                                    ? aText - bText
+                                    : bText - aText; // for numeric values
+                            });
+
+                            // Remove existing rows and append the sorted rows
+                            tbody.innerHTML = "";
+                            tbody.append(...sortedRows);
+
+                            // Update header indicator
+                            const header = table.rows[0].cells[columnIndex];
+                            header.innerHTML = header.innerHTML.includes('▲') ? header.innerHTML.replace('▲', '▼') : header.innerHTML.replace('▼', '▲');
+                        }
+                    </script>
+
+                    <script>
+                    function openNextModal(currentId) {
+                        // Tutup modal yang saat ini sedang terbuka
+                        const currentModal = document.getElementById("detailModal" + currentId);
+                        const bootstrapModalInstance = bootstrap.Modal.getInstance(currentModal);
+                        bootstrapModalInstance.hide();
+
+                        // Cari modal berikutnya
+                        const modals = document.querySelectorAll('[id^="detailModal"]');
+                        let foundCurrent = false;
+
+                        for (let i = 0; i < modals.length; i++) {
+                            const modalId = parseInt(modals[i].id.replace("detailModal", ""));
+
+                            if (foundCurrent) {
+                                // Modal berikutnya setelah ID saat ini
+                                const nextModal = new bootstrap.Modal(modals[i]);
+                                nextModal.show();
+                                break;
+                            }
+
+                            if (modalId === currentId) {
+                                foundCurrent = true;
+                            }
+                        }
+                    }
+
+                    function openPreviousModal(currentId) {
+                        // Tutup modal yang saat ini sedang terbuka
+                        const currentModal = document.getElementById("detailModal" + currentId);
+                        const bootstrapModalInstance = bootstrap.Modal.getInstance(currentModal);
+                        bootstrapModalInstance.hide();
+
+                        // Cari modal sebelumnya
+                        const modals = document.querySelectorAll('[id^="detailModal"]');
+                        let foundCurrent = false;
+
+                        for (let i = modals.length - 1; i >= 0; i--) {
+                            const modalId = parseInt(modals[i].id.replace("detailModal", ""));
+
+                            if (foundCurrent) {
+                                // Modal sebelumnya sebelum ID saat ini
+                                const previousModal = new bootstrap.Modal(modals[i]);
+                                previousModal.show();
+                                break;
+                            }
+
+                            if (modalId === currentId) {
+                                foundCurrent = true;
+                            }
+                        }
+                    }
                     </script>
 @endsection
