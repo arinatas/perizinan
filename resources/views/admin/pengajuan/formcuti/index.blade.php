@@ -51,16 +51,16 @@
                                             </div>
                                         @endif
 
-                                        <table class="table table-striped gy-7 gs-7">
+                                        <table class="table table-striped gy-7 gs-7" id="sortableTable">
                                             <thead>
                                                 <tr class="fw-bold fs-6 text-gray-800 border-bottom-2 border-gray-200">
                                                     <th class="min-w-10px">No</th>
-                                                    <th class="min-w-100px">Nama</th>
-                                                    <th class="min-w-50px">Jabatan</th>
-                                                    <th class="min-w-50px">Tanggal Mulai</th>
-                                                    <th class="min-w-50px">Tanggal Selesai</th>
-                                                    <th class="min-w-50px">Approve Atasan</th>
-                                                    <th class="min-w-50px">Approve SDM</th>
+                                                    <th class="min-w-100px" data-type="string" onclick="sortTable(1)">Nama ▲</th>
+                                                    <th class="min-w-50px" data-type="string" onclick="sortTable(2)">Jabatan ▲</th>
+                                                    <th class="min-w-50px" data-type="string" onclick="sortTable(3)">Tanggal Mulai ▲</th>
+                                                    <th class="min-w-50px" data-type="string" onclick="sortTable(4)">Tanggal Selesai ▲</th>
+                                                    <th class="min-w-50px" data-type="string" onclick="sortTable(5)">Approve Atasan ▲</th>
+                                                    <th class="min-w-50px" data-type="string" onclick="sortTable(6)">Approve SDM ▲</th>
                                                     <th class="min-w-100px">Action Atasan</th>
                                                     <th class="min-w-100px">Action SDM</th>
                                                     <th class="min-w-100px">Detail</th>
@@ -372,4 +372,44 @@
                             }
                         }
                     </script>
+
+                    <script>
+                        let sortOrder = {}; // Object to track sort order for each column
+
+                        function sortTable(columnIndex) {
+                            const table = document.getElementById("sortableTable");
+                            const tbody = table.tBodies[0];
+                            const rows = Array.from(tbody.rows);
+                            const type = table.rows[0].cells[columnIndex].getAttribute('data-type');
+
+                            // Determine the current sort order
+                            const currentOrder = sortOrder[columnIndex] || 'asc';
+                            const newOrder = currentOrder === 'asc' ? 'desc' : 'asc';
+                            sortOrder[columnIndex] = newOrder; // Update the sort order for the clicked column
+
+                            const sortedRows = rows.sort((a, b) => {
+                                const aText = a.cells[columnIndex].textContent.trim();
+                                const bText = b.cells[columnIndex].textContent.trim();
+
+                                if (type === 'string') {
+                                    return newOrder === 'asc'
+                                        ? aText.localeCompare(bText)
+                                        : bText.localeCompare(aText);
+                                }
+                                return newOrder === 'asc'
+                                    ? aText - bText
+                                    : bText - aText; // for numeric values
+                            });
+
+                            // Remove existing rows and append the sorted rows
+                            tbody.innerHTML = "";
+                            tbody.append(...sortedRows);
+
+                            // Update header indicator
+                            const header = table.rows[0].cells[columnIndex];
+                            header.innerHTML = header.innerHTML.includes('▲') ? header.innerHTML.replace('▲', '▼') : header.innerHTML.replace('▼', '▲');
+                        }
+                    </script>
+
+
 @endsection
