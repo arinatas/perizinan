@@ -149,12 +149,12 @@ class RekapanController extends Controller
 
         // Get izin details for the user
         $izinDetails = FormIzin::where('id_user', $id)
-            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->whereBetween('tanggal_mulai', [$startDate, $endDate])
             ->get();
 
         // Get izin sakit details for the user
         $sakitDetails = FormSakit::where('id_user', $id)
-            ->whereBetween('tanggal', [$startDate, $endDate])
+            ->whereBetween('tanggal_mulai', [$startDate, $endDate])
             ->get();
 
         // Get izin 1/2 hari details for the user
@@ -169,7 +169,7 @@ class RekapanController extends Controller
 
         // Get izin Tugas Keluar Kantor details for the user
         $tgsklrkantorDetails = FormTgsKlrKantor::where('id_user', $id)
-        ->whereBetween('tanggal', [$startDate, $endDate])
+        ->whereBetween('tanggal_mulai', [$startDate, $endDate])
         ->get();
 
         // Get Cuti details for the user
